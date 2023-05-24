@@ -15,7 +15,7 @@
 
 ## Installation
 ### Prerequisites
-- Flutter SDK:[Install Flutter](https://flutter.dev/docs/get-started/install) (version 3.10.1)
+- Flutter SDK: [Install Flutter](https://flutter.dev/docs/get-started/install) (version 3.10.1)
 - Dart SDK: [Install Dart](https://dart.dev/get-dart) (version 3.0.1)
 - Visual Studio Code/ Android Studio/ IntelliJ:Install IDE of your choice.
 - Emulator: Set up an emulator/simulator or connect physical device for testing.
