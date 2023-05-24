@@ -1,5 +1,5 @@
 import 'package:chat/core/utils/constants.dart';
-import 'package:chat/features/chat_app/presentation/widgets/splash_privvacy_policy_text.dart';
+import 'package:chat/features/chat_app/presentation/widgets/splash_privacy_policy_text.dart';
 import 'package:flutter/material.dart';
 
 class SplashWidget extends StatelessWidget {
