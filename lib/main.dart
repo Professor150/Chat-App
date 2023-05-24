@@ -1,3 +1,4 @@
+import 'package:chat/features/chat_app/presentation/pages/otp_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
