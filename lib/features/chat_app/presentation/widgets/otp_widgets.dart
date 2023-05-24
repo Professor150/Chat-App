@@ -73,7 +73,7 @@ class OptWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            backgroundColor: Color(0xFFF2796B),
+            backgroundColor: const Color(0xFFF2796B),
           ),
           onPressed: () {},
           child: normalText(
