@@ -56,7 +56,6 @@ EdgeInsets edgeInsetsAll() {
   return const EdgeInsets.all(12);
 }
 
-
 EdgeInsets edgeInsetsAll20() {
   return const EdgeInsets.all(20);
 }
@@ -69,6 +68,18 @@ const labelStyle = TextStyle(
 const hintTextStyle = TextStyle(
   color: AppColors.textColor,
   fontFamily: 'OpenSans',
+);
+
+final boxDecorationStyle = BoxDecoration(
+  color: AppColors.background,
+  borderRadius: BorderRadius.circular(10.0),
+  boxShadow: const [
+    BoxShadow(
+      color: Colors.black12,
+      blurRadius: 6.0,
+      offset: Offset(0, 2),
+    ),
+  ],
 );
 
 Widget normalText({
@@ -90,4 +101,3 @@ Widget normalText({
     ),
   );
 }
-

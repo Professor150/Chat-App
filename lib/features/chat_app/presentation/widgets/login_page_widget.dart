@@ -1,4 +1,5 @@
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
+import 'package:chat/features/chat_app/presentation/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
 
@@ -20,7 +21,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   // Map userProfile;
 
   bool _obscureText = true;
-  bool isEmpty = true;
 
   Widget _buildEmailTF() {
     return Column(
@@ -178,7 +178,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         child: const Text(
           'LOGIN',
           style: TextStyle(
-            // color: Color(0xFF527DAA),
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -199,7 +198,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             style: TextStyle(fontSize: 18),
           ),
           TextButton(
-            onPressed: () {},
+            // onPressed: () {},
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const RegisterScreen())),
             child: const Text("Sign up",
                 style: TextStyle(
                   color: Color(0xFFF2796B),
