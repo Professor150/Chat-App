@@ -25,7 +25,7 @@ class SplashWidget extends StatelessWidget {
               border: Border.all(color: Colors.black54),
               shape: BoxShape.circle,
             ),
-            child: Image.network(ImagePath().splashImage),
+            child: Image.asset(ImagePath.splashImage),
           ),
         ),
         SizedBox(

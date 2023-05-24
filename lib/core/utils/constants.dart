@@ -36,8 +36,7 @@ class AppColors {
 
 class ImagePath {
   static const String vurilo = 'assets/images/vurilo.png';
-  final String splashImage =
-      'https://uploads-ssl.webflow.com/642ba0e2773549a33b554a68/642bac2629d21641919eb836_vurilo_logo.png';
+  static const String splashImage = 'assets/images/logo.png';
 }
 
 double fullWidth(BuildContext context) {
@@ -55,7 +54,6 @@ double headerHeight(BuildContext context) {
 EdgeInsets edgeInsetsAll() {
   return const EdgeInsets.all(12);
 }
-
 
 EdgeInsets edgeInsetsAll20() {
   return const EdgeInsets.all(20);
@@ -90,4 +88,3 @@ Widget normalText({
     ),
   );
 }
-
