@@ -1,4 +1,4 @@
-## chat-application
+# chat-application
 
 ## Table of Contents
 - Project Overview
@@ -9,7 +9,7 @@
 - Contact
 
 ## Project Overview
-# Key features
+### Key features
 
 ## Installation
 
