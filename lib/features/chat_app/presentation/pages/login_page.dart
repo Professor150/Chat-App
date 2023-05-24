@@ -67,34 +67,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 10.0,
-                    vertical: 120.0,
+                    vertical: 100.0,
                   ),
                   child: Form(
                     key: _formkey,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Row(
-                          children: [
-                            const Text(
-                              'Log In',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'OpenSans',
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            // const SizedBox(
-                            //   width: 3,
-                            // ),
-                            Image.asset(
-                              'assets/images/User.png',
-                              height: size.height * 0.001,
-                              width: size.width * 0.001,
-                            ),
-                          ],
+                        const Text(
+                          'Log In',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'OpenSans',
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // const SizedBox(
+                        //   width: 3,
+                        // ),
+                        Image.asset(
+                          ImagePath.vurilo,
+                          height: fullHeight(context) * 0.1,
+                          width: fullWidth(context),
                         ),
                         const SizedBox(height: 30.0),
                         const LoginPageWidget(),
