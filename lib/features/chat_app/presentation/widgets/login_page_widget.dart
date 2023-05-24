@@ -15,12 +15,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-
   // Map userProfile;
 
   bool _obscureText = true;
-  bool _isLogged = false;
 
   Widget _buildEmailTF() {
     return Column(
@@ -224,5 +221,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         _buildSignupBtn(context),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }
