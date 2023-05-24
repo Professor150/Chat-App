@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   static const backgroundColor = Color(0xAA59B6B0);
@@ -35,6 +36,8 @@ class AppColors {
 
 class ImagePath {
   static const String vurilo = 'assets/images/vurilo.png';
+  final String splashImage =
+      'https://uploads-ssl.webflow.com/642ba0e2773549a33b554a68/642bac2629d21641919eb836_vurilo_logo.png';
 }
 
 double fullWidth(BuildContext context) {
@@ -53,6 +56,7 @@ EdgeInsets edgeInsetsAll() {
   return const EdgeInsets.all(12);
 }
 
+
 EdgeInsets edgeInsetsAll20() {
   return const EdgeInsets.all(20);
 }
@@ -66,3 +70,24 @@ const hintTextStyle = TextStyle(
   color: AppColors.textColor,
   fontFamily: 'OpenSans',
 );
+
+Widget normalText({
+  String? text,
+  Color? color,
+  double? size,
+  FontWeight? fontWeight,
+  double? letterSpacing,
+  String? fontFamily,
+}) {
+  return Text(
+    text!,
+    style: TextStyle(
+      color: color,
+      fontSize: size,
+      fontWeight: fontWeight,
+      letterSpacing: letterSpacing,
+      fontFamily: GoogleFonts.openSans().fontFamily,
+    ),
+  );
+}
+
