@@ -54,14 +54,14 @@ class SplashWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: fullHeight(context) * 0.073,
+          height: fullHeight(context) * 0.053,
         ),
         normalText(
           text: 'from',
           size: 17,
         ),
         SizedBox(
-          height: fullHeight(context) * 0.01,
+          height: fullHeight(context) * 0.001,
         ),
         normalText(
             text: 'VURILO',
