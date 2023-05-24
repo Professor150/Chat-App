@@ -1,3 +1,4 @@
+import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
 
@@ -11,16 +12,15 @@ class LoginPageWidget extends StatefulWidget {
 class _LoginPageWidgetState extends State<LoginPageWidget> {
   int i = 0;
 
-  // late String _email, _password;
+  // ignore: unused_field
+  late String _email, _password;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   // Map userProfile;
 
   bool _obscureText = true;
-  bool _isLogged = false;
+  bool isEmpty = true;
 
   Widget _buildEmailTF() {
     return Column(
@@ -48,14 +48,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           child: TextFormField(
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
-            // validator: (value) {
-            //   if (value.isEmpty) {
-            //     String a = 'Email is required';
-            //     return a;
-            //   }
-            //   return null;
-            // },
-            // onSaved: (input) => _email = input,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Email is required';
+              }
+              return null;
+            },
+            onSaved: (input) => _email = input!,
             style: const TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -101,14 +100,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           height: 60.0,
           child: TextFormField(
             controller: passwordController,
-            // validator: (value) {
-            //   if (value.isEmpty) {
-            //     String a = 'Password is required';
-            //     return a;
-            //   }
-            //   return null;
-            // },
-            // onSaved: (input) => _password = input,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Password is required';
+              }
+              return null;
+            },
+            onSaved: (input) => _password = input!,
             obscureText: _obscureText,
             style: const TextStyle(
               color: Colors.black,
@@ -174,11 +172,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             },
           ),
         ),
-        onPressed: () {},
+        // onPressed: () {},
+        onPressed: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const HomePage())),
         child: const Text(
           'LOGIN',
           style: TextStyle(
-            color: Color(0xFF527DAA),
+            // color: Color(0xFF527DAA),
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -194,15 +194,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
       alignment: Alignment.center,
       child: Row(
         children: [
-          const Text("Don't have an account?"),
+          const Text(
+            "Don't have an account?",
+            style: TextStyle(fontSize: 18),
+          ),
           TextButton(
             onPressed: () {},
-            // onPressed: () => Navigator.of(context).push(
-            //     MaterialPageRoute(builder: (context) => const RegisterPage())),
             child: const Text("Sign up",
                 style: TextStyle(
                   color: Color(0xFFF2796B),
-                  fontSize: 20,
+                  fontSize: 18,
                 )),
           ),
         ],
@@ -221,8 +222,18 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         _buildPasswordTF(),
         _buildForgotPasswordBtn(context),
         _buildLoginBtn(context),
-        _buildSignupBtn(context),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
+          child: _buildSignupBtn(context),
+        ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }
