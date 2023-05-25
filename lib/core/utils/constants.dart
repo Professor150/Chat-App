@@ -64,9 +64,9 @@ const labelStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
-const hintTextStyle = TextStyle(
+final hintTextStyle = TextStyle(
   color: AppColors.textColor,
-  fontFamily: 'OpenSans',
+  fontFamily: GoogleFonts.openSans().fontFamily,
 );
 
 final boxDecorationStyle = BoxDecoration(
@@ -80,7 +80,7 @@ final boxDecorationStyle = BoxDecoration(
     ),
   ],
 );
-
+String? fontFamily = GoogleFonts.openSans().fontFamily;
 Widget normalText({
   String? text,
   Color? color,
@@ -96,7 +96,9 @@ Widget normalText({
       fontSize: size,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
-      fontFamily: GoogleFonts.openSans().fontFamily,
+      fontFamily: fontFamily,
     ),
   );
 }
+
+String? googleFontFamily = GoogleFonts.pacifico().fontFamily;

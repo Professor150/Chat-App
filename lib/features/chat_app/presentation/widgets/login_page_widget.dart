@@ -59,10 +59,10 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               color: Colors.black,
               fontFamily: 'OpenSans',
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.email,
                 color: AppColors.iconColor,
               ),

@@ -90,7 +90,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Container(
                           color: AppColors.background,
-                          child: Image.network(
+
+                          child: Image.asset(
+
                             ImagePath.splashImage,
                             height: fullHeight(context) * 0.09,
                             width: fullWidth(context) * 0.5,
