@@ -40,11 +40,11 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
         Container(
           height: fullHeight(context) * .75,
           width: fullWidth(context),
-          color: AppColors.darkgrey,
+          color: AppColors.transparentBackgroundColor,
           child: Text('AA'),
         ),
         Container(
-          color: AppColors.lightBlue,
+          color: AppColors.iconColor,
           height: fullHeight(context) * .1,
         )
       ]),
