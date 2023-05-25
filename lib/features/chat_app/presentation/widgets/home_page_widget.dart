@@ -18,12 +18,8 @@ class HomePageWidget extends StatelessWidget {
             Image.asset(
               ImagePath.vurilo,
             ),
-
             Spacer(),
-            Text(
-
             const Text(
-
               'Recent Chat',
               style: TextStyle(fontSize: 20),
             ),
