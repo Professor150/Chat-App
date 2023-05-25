@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<StatefulWidget> createState() => _LoginScreenState();
 }
@@ -83,13 +85,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // const SizedBox(
-                        //   width: 3,
-                        // ),
-                        Image.asset(
-                          ImagePath.vurilo,
-                          height: fullHeight(context) * 0.1,
-                          width: fullWidth(context),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          color: AppColors.background,
+                          child: Image.network(
+                            ImagePath().splashImage,
+                            height: fullHeight(context) * 0.09,
+                            width: fullWidth(context) * 0.5,
+                          ),
                         ),
                         const SizedBox(height: 30.0),
                         const LoginPageWidget(),
