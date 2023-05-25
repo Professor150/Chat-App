@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
   final time = DateFormat().locale;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(

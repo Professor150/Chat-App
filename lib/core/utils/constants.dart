@@ -69,6 +69,18 @@ const hintTextStyle = TextStyle(
   fontFamily: 'OpenSans',
 );
 
+final boxDecorationStyle = BoxDecoration(
+  color: AppColors.background,
+  borderRadius: BorderRadius.circular(10.0),
+  boxShadow: const [
+    BoxShadow(
+      color: Colors.black12,
+      blurRadius: 6.0,
+      offset: Offset(0, 2),
+    ),
+  ],
+);
+
 Widget normalText({
   String? text,
   Color? color,
