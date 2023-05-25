@@ -36,8 +36,7 @@ class AppColors {
 
 class ImagePath {
   static const String vurilo = 'assets/images/vurilo.png';
-  final String splashImage =
-      'https://uploads-ssl.webflow.com/642ba0e2773549a33b554a68/642bac2629d21641919eb836_vurilo_logo.png';
+  static const String splashImage = 'assets/images/logo.png';
 }
 
 double fullWidth(BuildContext context) {
@@ -68,6 +67,18 @@ const labelStyle = TextStyle(
 const hintTextStyle = TextStyle(
   color: AppColors.textColor,
   fontFamily: 'OpenSans',
+);
+
+final boxDecorationStyle = BoxDecoration(
+  color: AppColors.background,
+  borderRadius: BorderRadius.circular(10.0),
+  boxShadow: const [
+    BoxShadow(
+      color: Colors.black12,
+      blurRadius: 6.0,
+      offset: Offset(0, 2),
+    ),
+  ],
 );
 
 Widget normalText({

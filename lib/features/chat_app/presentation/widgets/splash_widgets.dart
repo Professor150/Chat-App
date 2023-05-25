@@ -25,7 +25,7 @@ class SplashWidget extends StatelessWidget {
               border: Border.all(color: Colors.black54),
               shape: BoxShape.circle,
             ),
-            child: Image.network(ImagePath().splashImage),
+            child: Image.asset(ImagePath.splashImage),
           ),
         ),
         SizedBox(
@@ -42,7 +42,7 @@ class SplashWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            backgroundColor: Color(0xFFF2796B),
+            backgroundColor: const Color(0xFFF2796B),
             fixedSize: Size(
               fullWidth(context) * 0.9,
               fullHeight(context) * 0.06,
