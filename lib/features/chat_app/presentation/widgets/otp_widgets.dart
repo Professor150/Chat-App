@@ -1,4 +1,5 @@
 import 'package:chat/core/utils/constants.dart';
+import 'package:chat/features/chat_app/presentation/pages/opt_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -75,7 +76,10 @@ class OptWidget extends StatelessWidget {
             ),
             backgroundColor: const Color(0xFFF2796B),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => const OptPage()));
+          },
           child: normalText(
             text: 'Next',
             fontWeight: FontWeight.w500,
@@ -85,23 +89,3 @@ class OptWidget extends StatelessWidget {
     );
   }
 }
-   // body: Column(
-      //   children: [
-      //     Flexible(
-      //       child: ListView.builder(
-      //         itemCount: 10,
-      //         itemBuilder: (context, index) {
-      //           return Container(
-      //             child: ListTile(
-      //               title: normalText(text: 'Name'),
-      //               leading: Image.asset(
-      //                 ImagePath.vurilo,
-      //               ),
-      //               trailing: normalText(text: '${DateTime.now()}'),
-      //             ),
-      //           );
-      //         },
-      //       ),
-      //     )
-      //   ],
-      // ),

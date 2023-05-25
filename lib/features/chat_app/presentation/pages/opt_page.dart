@@ -1,9 +1,10 @@
 import 'package:chat/core/utils/constants.dart';
+import 'package:chat/features/chat_app/presentation/pages/phone_number_login_page.dart';
 import 'package:chat/features/chat_app/presentation/widgets/otp_input_widget.dart';
 import 'package:flutter/material.dart';
 
-class OptInputPage extends StatelessWidget {
-  const OptInputPage({super.key});
+class OptPage extends StatelessWidget {
+  const OptPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,12 @@ class OptInputPage extends StatelessWidget {
         centerTitle: true,
         actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))],
       ),
-      body: const OtpInputWidget(),
+      body: OtpInputWidget(
+        wrongNumber: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const PhoneNumberLoginPage()),
+        ),
+      ),
     );
   }
 }

@@ -36,7 +36,7 @@ class PrivacyPolicyText extends StatelessWidget {
                     ..onTap = onPrivacyPolicyPressed,
                 ),
                 TextSpan(
-                  text: "Tap anAgree and continue to ",
+                  text: "Tap Agree and continue to",
                   style: DefaultTextStyle.of(context).style,
                 ),
               ],
@@ -44,11 +44,11 @@ class PrivacyPolicyText extends StatelessWidget {
           ),
         ),
         RichText(
-          textScaleFactor: 1.17,
+          textScaleFactor: 1,
           text: TextSpan(
             children: [
               const TextSpan(
-                text: '  accept the',
+                text: 'accept the',
                 style: TextStyle(
                   color: Colors.black,
                 ),
