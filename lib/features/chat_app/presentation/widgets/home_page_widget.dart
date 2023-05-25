@@ -13,15 +13,22 @@ class HomePageWidget extends StatelessWidget {
       child: Padding(
         padding: edgeInsetsAll(),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.asset(
               ImagePath.vurilo,
             ),
+            Spacer(),
             const Text(
               'Recent Chat',
               style: TextStyle(fontSize: 20),
             ),
+            Spacer(),
+            Text('Logout'),
+            SizedBox(
+              width: 4,
+            ),
+            Icon(Icons.logout),
           ],
         ),
       ),
@@ -65,7 +72,7 @@ class HomePageChatWidget extends StatelessWidget {
               textAlign: TextAlign.right,
             ),
             SizedBox(
-              width: fullWidth(context) * .55,
+              width: fullWidth(context) * .50,
             ),
             Text(
               '$time',
