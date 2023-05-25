@@ -1,15 +1,10 @@
 import 'package:chat/features/chat_app/domain/repositories/chat_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:chat/core/utils/constants.dart';
 import 'package:chat/features/chat_app/presentation/widgets/home_page_widget.dart';
 import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:provider/provider.dart';
 
-import 'package:chat/features/chat_app/presentation/widgets/home_page_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:chat/core/utils/constants.dart';
 import 'package:intl/intl.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
