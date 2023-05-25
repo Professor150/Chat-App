@@ -2,8 +2,8 @@ import 'package:chat/core/utils/constants.dart';
 import 'package:chat/features/chat_app/presentation/widgets/otp_widgets.dart';
 import 'package:flutter/material.dart';
 
-class OtpPage extends StatelessWidget {
-  const OtpPage({super.key});
+class PhoneNumberRegisterPage extends StatelessWidget {
+  const PhoneNumberRegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
