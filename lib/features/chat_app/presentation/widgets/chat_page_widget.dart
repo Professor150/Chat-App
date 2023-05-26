@@ -1,4 +1,5 @@
 import 'package:chat/core/utils/constants.dart';
+import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 class ChatPageWidget extends StatefulWidget {
@@ -26,6 +27,16 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                 Image.asset(
                   ImagePath.vurilo,
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => LoginPage(),
+                        ));
+                  },
+                  child: const Text('Login Page'),
+                ),
                 Spacer(),
                 Text(
                   'Name',
@@ -46,7 +57,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
         Container(
           color: AppColors.iconColor,
           height: fullHeight(context) * .1,
-        )
+        ),
       ]),
     );
   }

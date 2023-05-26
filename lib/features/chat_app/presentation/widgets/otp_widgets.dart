@@ -1,12 +1,15 @@
 import 'package:chat/core/utils/constants.dart';
 import 'package:chat/features/chat_app/presentation/pages/opt_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class OptWidget extends StatelessWidget {
   final VoidCallback whatisMyNumber;
-  OptWidget({required this.whatisMyNumber});
+  OptWidget({super.key, required this.whatisMyNumber});
+  final TextEditingController _phoneNumberController =
+      TextEditingController(text: '+9779761666132');
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +56,7 @@ class OptWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: IntlPhoneField(
+              controller: _phoneNumberController,
               decoration: InputDecoration(
                 labelText: 'Phone Number',
                 border: OutlineInputBorder(
@@ -64,9 +68,6 @@ class OptWidget extends StatelessWidget {
                 print(phone.completeNumber);
               },
             )),
-        // SizedBox(
-        //   height: fullHeight(context) * 0.5,
-        // ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             fixedSize:
@@ -76,9 +77,22 @@ class OptWidget extends StatelessWidget {
             ),
             backgroundColor: const Color(0xFFF2796B),
           ),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => const OptPage()));
+          onPressed: () async {
+            await FirebaseAuth.instance.verifyPhoneNumber(
+              phoneNumber: _phoneNumberController.text,
+              verificationCompleted: (PhoneAuthCredential credential) {},
+              verificationFailed: (FirebaseAuthException e) {},
+              codeSent: (String verificationId, int? resendToken) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => OptPage(
+                              phoneNumber: _phoneNumberController.text,
+                              verficationCode: verificationId,
+                            )));
+              },
+              codeAutoRetrievalTimeout: (String verificationId) {},
+            );
           },
           child: normalText(
             text: 'Next',

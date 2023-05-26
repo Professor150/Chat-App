@@ -1,11 +1,16 @@
 import 'package:chat/core/utils/constants.dart';
 import 'package:chat/features/chat_app/presentation/widgets/otp_input_code_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:pinput/pinput.dart';
 
 class OtpInputWidget extends StatelessWidget {
-  const OtpInputWidget({super.key, required this.wrongNumber});
+  const OtpInputWidget(
+      {super.key, required this.wrongNumber, required this.verficationCode});
   final VoidCallback wrongNumber;
+
+  final String verficationCode;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,19 @@ class OtpInputWidget extends StatelessWidget {
         SizedBox(
           height: fullHeight(context) * 0.02,
         ),
-        OTPInputField(),
+        // OTPInputField(),
+        Pinput(
+          pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+          showCursor: true,
+          length: 6,
+          onCompleted: (pin) async {
+            FirebaseAuth auth = FirebaseAuth.instance;
+            PhoneAuthCredential credential = PhoneAuthProvider.credential(
+                verificationId: verficationCode, smsCode: pin);
+            final user = await auth.signInWithCredential(credential);
+            print(user);
+          },
+        ),
       ],
     );
   }

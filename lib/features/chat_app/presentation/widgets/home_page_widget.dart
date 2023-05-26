@@ -18,17 +18,21 @@ class HomePageWidget extends StatelessWidget {
             Image.asset(
               ImagePath.vurilo,
             ),
-            Spacer(),
+            const Spacer(),
             const Text(
               'Recent Chat',
               style: TextStyle(fontSize: 20),
             ),
-            Spacer(),
-            Text('Logout'),
-            SizedBox(
+            const Spacer(),
+            const SizedBox(
               width: 4,
             ),
-            Icon(Icons.logout),
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                Navigator.pushNamed(context, '/loginPage');
+              },
+            ),
           ],
         ),
       ),
