@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365461331195",
+    "project_id": "chat-app-4e456",
+    "storage_bucket": "chat-app-4e456.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365461331195:android:71529c4d67e6e36fb3e45e",
+        "android_client_info": {
+          "package_name": "com.vurilo.chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnZVC7csl_AGE-TRIYTKKvX5gMbpTJ7ys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
