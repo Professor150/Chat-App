@@ -50,8 +50,8 @@ class SplashWidget extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => const LoginPage()));
           },
           child: const Text(
             'AGREE AND CONTINUE',

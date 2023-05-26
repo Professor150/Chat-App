@@ -2,20 +2,15 @@ import 'package:chat/features/chat_app/presentation/widgets/login_page_widget.da
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _LoginScreenState();
+  State<StatefulWidget> createState() => _LoginPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginPageState extends State<LoginPage> {
   int i = 0;
-
-  // late String _email, _password;
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   // Map userProfile;
@@ -90,13 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Container(
                           color: AppColors.background,
-
-                          child: Image.asset(
-
-                            ImagePath.splashImage,
-                            height: fullHeight(context) * 0.09,
-                            width: fullWidth(context) * 0.5,
-                          ),
+                          child: Image.asset("assets/images/logo.png"),
                         ),
                         const SizedBox(height: 30.0),
                         const LoginPageWidget(),
@@ -107,12 +96,5 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
       ],
     ));
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
   }
 }
