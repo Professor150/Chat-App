@@ -9,11 +9,13 @@ import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/splash_page.dart';
 
 import 'package:chat/features/chat_app/presentation/widgets/otp_input_widget.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+ 
   runApp(MyApp());
 }
 
