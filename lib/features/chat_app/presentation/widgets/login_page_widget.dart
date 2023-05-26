@@ -199,8 +199,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           ),
           TextButton(
             // onPressed: () {},
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const RegisterScreen())),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const RegisterPage())),
             child: const Text("Sign up",
                 style: TextStyle(
                   color: Color(0xFFF2796B),

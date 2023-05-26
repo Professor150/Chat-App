@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
-import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
+import 'package:chat/features/chat_app/data/models/register_model.dart';
 
 class RegisterPageWidget extends StatefulWidget {
   const RegisterPageWidget({super.key});
@@ -90,8 +90,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.email,
                 color: AppColors.iconColor,
               ),
@@ -133,8 +133,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.phone_android_outlined,
                 color: AppColors.iconColor,
               ),
@@ -161,7 +161,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
           height: 60.0,
           child: TextFormField(
             controller: passwordController,
-            validator: (value) { 
+            validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Password is required';
               }
@@ -263,9 +263,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
             },
           ),
         ),
-        // onPressed: () {},
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => LoginScreen())),
+        onPressed: () => createUserWithEmailAndPassword(context),
         child: const Text(
           'REGISTER',
           style: TextStyle(
