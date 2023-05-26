@@ -1,3 +1,4 @@
+import 'package:chat/features/chat_app/data/models/logout_model.dart';
 import 'package:chat/features/chat_app/domain/repositories/chat_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/features/chat_app/presentation/widgets/home_page_widget.dart';
