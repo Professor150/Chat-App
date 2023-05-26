@@ -1,4 +1,5 @@
 import 'package:chat/core/utils/constants.dart';
+import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/widgets/splash_privacy_policy_text.dart';
 import 'package:flutter/material.dart';
 
@@ -48,13 +49,16 @@ class SplashWidget extends StatelessWidget {
               fullHeight(context) * 0.06,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (_) => const LoginScreen()));
+          },
           child: const Text(
             'AGREE AND CONTINUE',
           ),
         ),
         SizedBox(
-          height: fullHeight(context) * 0.053,
+          height: fullHeight(context) * 0.033,
         ),
         normalText(
           text: 'from',

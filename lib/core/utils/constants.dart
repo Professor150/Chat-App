@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  static const backgroundColor = Color(0xAA59B6B0);
-  static const transparentBackgroundColor = Color(0xFF59B6B0);
+  static const backgroundColor = Color(0xff009f97);
+  static const transparentBackgroundColor = Color(0xffDDEDED);
 
   static const Color mainColor = Color(0xff2470c7);
   // static const Color primaryColor = Color(0xFF0D47A1);
@@ -64,9 +64,9 @@ const labelStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
-const hintTextStyle = TextStyle(
+final hintTextStyle = TextStyle(
   color: AppColors.textColor,
-  fontFamily: 'OpenSans',
+  fontFamily: GoogleFonts.openSans().fontFamily,
 );
 
 final boxDecorationStyle = BoxDecoration(
@@ -80,7 +80,7 @@ final boxDecorationStyle = BoxDecoration(
     ),
   ],
 );
-
+String? fontFamily = GoogleFonts.openSans().fontFamily;
 Widget normalText({
   String? text,
   Color? color,
@@ -96,7 +96,9 @@ Widget normalText({
       fontSize: size,
       fontWeight: fontWeight,
       letterSpacing: letterSpacing,
-      fontFamily: GoogleFonts.openSans().fontFamily,
+      fontFamily: fontFamily,
     ),
   );
 }
+
+String? googleFontFamily = GoogleFonts.pacifico().fontFamily;

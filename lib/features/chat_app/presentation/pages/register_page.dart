@@ -61,7 +61,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Container(
                     color: AppColors.background,
                     child: Image.network(
+
                       ImagePath.vurilo,
+
                       height: fullHeight(context) * 0.09,
                       width: fullWidth(context) * 0.5,
                     ),

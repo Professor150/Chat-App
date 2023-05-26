@@ -45,10 +45,10 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
               color: Colors.black,
               fontFamily: 'OpenSans',
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
+              contentPadding: const EdgeInsets.only(top: 14.0),
+              prefixIcon: const Icon(
                 Icons.person_2_rounded,
                 color: AppColors.iconColor,
               ),
@@ -88,7 +88,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
               color: Colors.black,
               fontFamily: 'OpenSans',
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -131,7 +131,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
               color: Colors.black,
               fontFamily: 'OpenSans',
             ),
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
@@ -161,7 +161,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
           height: 60.0,
           child: TextFormField(
             controller: passwordController,
-            validator: (value) {
+            validator: (value) { 
               if (value == null || value.isEmpty) {
                 return 'Password is required';
               }
