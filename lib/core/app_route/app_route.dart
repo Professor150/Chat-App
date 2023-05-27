@@ -1,4 +1,5 @@
 import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
+import 'package:chat/features/chat_app/presentation/pages/forgot_button_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/opt_page.dart';
@@ -31,6 +32,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/chatPage':
         return MaterialPageRoute(builder: (_) => const ChatPage());
+      case '/forgot':
+        return MaterialPageRoute(
+            builder: (_) => ForgotButton(
+                  emailController: TextEditingController(),
+                ));
 
       default:
         return MaterialPageRoute(builder: (_) => const PageNotFound());

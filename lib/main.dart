@@ -6,10 +6,6 @@ import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 
-import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
-import 'package:chat/features/chat_app/presentation/pages/splash_page.dart';
-
-import 'package:chat/features/chat_app/presentation/widgets/otp_input_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -34,6 +30,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ChatListRepository()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Chat App',
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),

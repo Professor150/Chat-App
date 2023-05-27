@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePageWidget extends StatelessWidget {
   const HomePageWidget({super.key});
@@ -29,7 +30,8 @@ class HomePageWidget extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(Icons.logout),
-              onPressed: () {
+              onPressed: () async {
+                FirebaseAuth.instance.signOut();
                 Navigator.pushNamed(context, '/loginPage');
               },
             ),

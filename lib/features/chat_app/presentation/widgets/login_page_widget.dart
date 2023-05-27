@@ -142,9 +142,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: () {},
-        // onPressed: () => Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => ForgetPwdScreen())),
+        onPressed: () {
+          Navigator.pushNamed(context, '/forgot');
+        },
         child: const Text(
           'Forgot Password?',
           style: TextStyle(
