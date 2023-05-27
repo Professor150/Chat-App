@@ -1,3 +1,4 @@
+import 'package:chat/features/chat_app/data/models/logout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,6 +30,7 @@ class HomePageWidget extends StatelessWidget {
               width: 4,
             ),
             IconButton(
+
               icon: const Icon(Icons.logout),
               onPressed: () async {
                 FirebaseAuth.instance.signOut();

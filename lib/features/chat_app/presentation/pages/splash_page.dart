@@ -1,3 +1,4 @@
+import 'package:chat/core/utils/constants.dart';
 import 'package:chat/features/chat_app/presentation/widgets/splash_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Color(0xFF59B6B0),
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: SplashWidget(),
       ),

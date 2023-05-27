@@ -60,11 +60,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   Container(
                     color: AppColors.background,
-                    child: Image.asset(
-                      ImagePath.vurilo,
-                      height: fullHeight(context) * 0.09,
-                      width: fullWidth(context) * 0.5,
-                    ),
+
+                    child: Image.asset("assets/images/logo.png"),
                   ),
                   const SizedBox(height: 30.0),
                   const RegisterPageWidget(),
