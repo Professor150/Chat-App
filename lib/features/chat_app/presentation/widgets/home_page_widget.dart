@@ -1,6 +1,7 @@
 import 'package:chat/features/chat_app/data/models/logout_model.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePageWidget extends StatelessWidget {
   const HomePageWidget({super.key});
@@ -19,21 +20,23 @@ class HomePageWidget extends StatelessWidget {
             Image.asset(
               ImagePath.vurilo,
             ),
-            Spacer(),
+            const Spacer(),
             const Text(
               'Recent Chat',
               style: TextStyle(fontSize: 20),
             ),
-            Spacer(),
-            Text('Logout'),
-            SizedBox(
+            const Spacer(),
+            const SizedBox(
               width: 4,
             ),
             IconButton(
-                icon: Icon(Icons.logout),
-                onPressed: () {
-                  signOut(context);
-                }),
+
+              icon: const Icon(Icons.logout),
+              onPressed: () async {
+                FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, '/loginPage');
+              },
+            ),
           ],
         ),
       ),

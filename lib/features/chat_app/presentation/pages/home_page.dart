@@ -21,12 +21,14 @@ class _HomePageState extends State<HomePage> {
     return ChangeNotifierProvider(
       create: (context) => ChatListRepository(),
       child: Scaffold(
-        floatingActionButton:
-            IconButton(icon: Icon(Icons.add), onPressed: () {}),
+        floatingActionButton: IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () {},
+        ),
         body: SafeArea(
           child: Column(
             children: [
-              HomePageWidget(),
+              const HomePageWidget(),
               Expanded(
                 child: Consumer<ChatListRepository>(
                   builder: (context, chatListProvider, _) {
@@ -38,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChatPage(),
+                                builder: (context) => const ChatPage(),
                               ),
                             );
                             print(index);

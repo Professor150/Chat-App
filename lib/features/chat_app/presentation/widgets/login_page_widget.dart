@@ -1,5 +1,7 @@
+import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/register_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
 
@@ -19,7 +21,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   TextEditingController passwordController = TextEditingController();
 
   // Map userProfile;
-
+  bool _isloading = false;
   bool _obscureText = true;
 
   Widget _buildEmailTF() {
@@ -140,9 +142,9 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     return Container(
       alignment: Alignment.centerRight,
       child: TextButton(
-        onPressed: () {},
-        // onPressed: () => Navigator.of(context)
-        //     .push(MaterialPageRoute(builder: (context) => ForgetPwdScreen())),
+        onPressed: () {
+          Navigator.pushNamed(context, '/forgot');
+        },
         child: const Text(
           'Forgot Password?',
           style: TextStyle(
@@ -173,8 +175,27 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           ),
         ),
         // onPressed: () {},
-        onPressed: () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const HomePage())),
+        onPressed: () {
+          String email = emailController.text;
+          String password = passwordController.text;
+
+          FirebaseAuth.instance
+              .signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+              .then((UserCredential userCredential) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => const HomePage(),
+              ),
+            );
+            print('Login successful');
+          }).catchError((error) {
+            print('Login error: $error');
+          });
+        },
         child: const Text(
           'LOGIN',
           style: TextStyle(
@@ -236,5 +257,11 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _login() async {
+    setState(() {
+      _isloading = true; // Set loading indicator state to true
+    });
   }
 }

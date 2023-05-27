@@ -85,6 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Container(
                           color: AppColors.background,
+
                           child: Image.asset("assets/images/logo.png"),
                         ),
                         const SizedBox(height: 30.0),

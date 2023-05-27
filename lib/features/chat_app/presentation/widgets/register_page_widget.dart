@@ -1,6 +1,11 @@
+import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
+
 import 'package:chat/features/chat_app/data/models/register_model.dart';
+
 
 class RegisterPageWidget extends StatefulWidget {
   const RegisterPageWidget({super.key});
@@ -104,6 +109,50 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     );
   }
 
+
+  // Widget _buildPhoneNumber() {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: <Widget>[
+  //       const Text(
+  //         'Phone Number',
+  //         style: labelStyle,
+  //       ),
+  //       const SizedBox(height: 10.0),
+  //       Container(
+  //         alignment: Alignment.centerLeft,
+  //         decoration: boxDecorationStyle,
+  //         height: 60.0,
+  //         child: TextFormField(
+  //           keyboardType: TextInputType.number,
+  //           controller: phoneNumberController,
+  //           validator: (value) {
+  //             if (value == null || value.isEmpty) {
+  //               return 'Phone Number is required';
+  //             }
+  //             return null;
+  //           },
+  //           onSaved: (input) => _phoneNumber = input!,
+  //           style: const TextStyle(
+  //             color: Colors.black,
+  //             fontFamily: 'OpenSans',
+  //           ),
+  //           decoration: InputDecoration(
+  //             border: InputBorder.none,
+  //             contentPadding: const EdgeInsets.only(top: 14.0),
+  //             prefixIcon: const Icon(
+  //               Icons.phone_android_outlined,
+  //               color: AppColors.iconColor,
+  //             ),
+  //             hintText: 'Enter Phone Number',
+  //             hintStyle: hintTextStyle,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+=======
   Widget _buildPhoneNumber() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,6 +195,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
       ],
     );
   }
+
 
   Widget _buildPassword() {
     return Column(
@@ -263,7 +313,45 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
             },
           ),
         ),
+
+        // pradeep changes
+        onPressed: () {
+          String name = nameController.text;
+          String email = emailController.text;
+          String password = passwordController.text;
+
+          FirebaseAuth.instance
+              .createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+              .then((UserCredential userCredential) {
+            String userId = userCredential.user!.uid;
+
+            FirebaseFirestore.instance.collection('users').doc(userId).set({
+              'password': password,
+              'email': email,
+              'name': name,
+            }).then((value) {
+              _showSuccessMessage(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const LoginPage(),
+                ),
+              );
+              print('User registered and data stored successfully');
+            }).catchError((error) {
+              print('Error storing user data: $error');
+            });
+          }).catchError((error) {
+            print('Registration error: $error');
+          });
+        },
+        // onPressed: () => createUserWithEmailAndPassword(context),
+
         onPressed: () => createUserWithEmailAndPassword(context),
+
         child: const Text(
           'REGISTER',
           style: TextStyle(
@@ -277,12 +365,23 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     );
   }
 
+  void _showSuccessMessage(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Signup successful'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  // pradeep changes
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         _buildUsername(),
-        _buildPhoneNumber(),
+        // _buildPhoneNumber(),
         _buildEmail(),
         _buildPassword(),
         _buildConfirmPassword(),

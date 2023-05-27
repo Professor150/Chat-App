@@ -7,6 +7,7 @@ Future<void> signOut(context) async {
     print('Userrrr');
     await authentication.signOut();
     Navigator.pushNamed(context, '/loginPage');
+
   } catch (e) {
     print("error");
   }

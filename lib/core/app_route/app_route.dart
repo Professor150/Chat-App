@@ -1,4 +1,5 @@
 import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
+import 'package:chat/features/chat_app/presentation/pages/forgot_button_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/opt_page.dart';
@@ -12,7 +13,11 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
+
+        return MaterialPageRoute(builder: (_) => RegisterPage());
+
         return MaterialPageRoute(builder: (_) => const SplashPage());
+
       case '/loginPage':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/registerPage':
@@ -22,11 +27,23 @@ class AppRouter {
       case '/emailLinkLoginPage':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/otpPage':
+
+        return MaterialPageRoute(
+            builder: (_) => const OptPage(
+                  phoneNumber: '',
+                  verficationCode: '',
+                ));
+
         return MaterialPageRoute(builder: (_) => const OptPage());
       case '/homePage':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/chatPage':
         return MaterialPageRoute(builder: (_) => const ChatPage());
+      case '/forgot':
+        return MaterialPageRoute(
+            builder: (_) => ForgotButton(
+                  emailController: TextEditingController(),
+                ));
 
       default:
         return MaterialPageRoute(builder: (_) => const PageNotFound());
