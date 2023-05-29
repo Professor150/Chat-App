@@ -45,6 +45,7 @@ dependencies:
   provider: ^6.0.5
   http: ^0.13.0
   sn_progress_dialog: ^1.1.3
+  fluttertoast: any
 
   pinput: ^2.2.31
 

@@ -30,7 +30,6 @@ class HomePageWidget extends StatelessWidget {
               width: 4,
             ),
             IconButton(
-
               icon: const Icon(Icons.logout),
               onPressed: () async {
                 FirebaseAuth.instance.signOut();

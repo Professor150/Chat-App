@@ -1,9 +1,12 @@
 import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/register_page.dart';
+import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class LoginPageWidget extends StatefulWidget {
   const LoginPageWidget({super.key});
@@ -160,6 +163,17 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   }
 
   Widget _buildLoginBtn(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    switch (authProvider.status) {
+      case Status.authenticateError:
+        Fluttertoast.showToast(msg: "Sign in failed.");
+        break;
+      case Status.authenticated:
+        Fluttertoast.showToast(msg: "Sign in Successful.");
+        break;
+      default:
+        break;
+    }
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
@@ -178,23 +192,28 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         onPressed: () {
           String email = emailController.text;
           String password = passwordController.text;
-
-          FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-            email: email,
-            password: password,
-          )
-              .then((UserCredential userCredential) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const HomePage(),
-              ),
-            );
-            print('Login successful');
-          }).catchError((error) {
-            print('Login error: $error');
+          authProvider.handleSignIn(email, password).then((isSuccess) {
+            if (isSuccess) {
+              Navigator.pushNamed(context, '/homePage');
+            }
           });
+
+          // FirebaseAuth.instance
+          //     .signInWithEmailAndPassword(
+          //   email: email,
+          //   password: password,
+          // )
+          //     .then((UserCredential userCredential) {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (_) => const HomePage(),
+          //     ),
+          //   );
+          //   print('Login successful');
+          // }).catchError((error) {
+          //   print('Login error: $error');
+          // });
         },
         child: const Text(
           'LOGIN',
