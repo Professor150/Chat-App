@@ -152,7 +152,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
   //     ],
   //   );
   // }
-=======
+
   Widget _buildPhoneNumber() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,6 +195,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
       ],
     );
   }
+
 
 
   Widget _buildPassword() {
