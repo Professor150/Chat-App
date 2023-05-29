@@ -13,28 +13,23 @@ class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-
-
         return MaterialPageRoute(builder: (_) => const SplashPage());
 
-
-      case '/loginPage':
-        return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/registerPage':
         return MaterialPageRoute(builder: (_) => const RegisterPage());
+      case '/loginPage':
+        return MaterialPageRoute(builder: (_) => const LoginPage());
       case '/phoneNumberLoginPage':
         return MaterialPageRoute(builder: (_) => const PhoneNumberLoginPage());
       case '/emailLinkLoginPage':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/otpPage':
-
         return MaterialPageRoute(
             builder: (_) => const OptPage(
                   phoneNumber: '',
                   verficationCode: '',
                 ));
 
-        return MaterialPageRoute(builder: (_) => const OptPage());
       case '/homePage':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/chatPage':

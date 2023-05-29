@@ -1,11 +1,13 @@
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
+import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:chat/core/utils/constants.dart';
 
 import 'package:chat/features/chat_app/data/models/register_model.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPageWidget extends StatefulWidget {
   const RegisterPageWidget({super.key});
@@ -109,7 +111,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     );
   }
 
-
   // Widget _buildPhoneNumber() {
   //   return Column(
   //     crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,8 +196,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
       ],
     );
   }
-
-
 
   Widget _buildPassword() {
     return Column(
@@ -300,6 +299,17 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
   }
 
   Widget _buildRegisterButton(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    switch (authProvider.status) {
+      case Status.authenticateError:
+        Fluttertoast.showToast(msg: "Sign up failed.");
+        break;
+      case Status.authenticated:
+        Fluttertoast.showToast(msg: "Sign up Successful.");
+        break;
+      default:
+        break;
+    }
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
@@ -321,37 +331,40 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
           String email = emailController.text;
           String password = passwordController.text;
 
-          FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-            email: email,
-            password: password,
-          )
-              .then((UserCredential userCredential) {
-            String userId = userCredential.user!.uid;
-
-            FirebaseFirestore.instance.collection('users').doc(userId).set({
-              'password': password,
-              'email': email,
-              'name': name,
-            }).then((value) {
-              _showSuccessMessage(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const LoginPage(),
-                ),
-              );
-              print('User registered and data stored successfully');
-            }).catchError((error) {
-              print('Error storing user data: $error');
-            });
-          }).catchError((error) {
-            print('Registration error: $error');
+          authProvider.handleSignUp(name, email, password).then((isSuccess) {
+            if (isSuccess) {
+              Navigator.pushNamed(context, "/loginPage");
+            }
           });
-        },
-        // onPressed: () => createUserWithEmailAndPassword(context),
 
-        onPressed: () => createUserWithEmailAndPassword(context),
+          // FirebaseAuth.instance
+          //     .createUserWithEmailAndPassword(
+          //   email: email,
+          //   password: password,
+          // )
+          //     .then((UserCredential userCredential) {
+          //   String userId = userCredential.user!.uid;
+
+          //   FirebaseFirestore.instance.collection('users').doc(userId).set({
+          //     'password': password,
+          //     'email': email,
+          //     'name': name,
+          //   }).then((value) {
+          //     _showSuccessMessage(context);
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (_) => const LoginPage(),
+          //       ),
+          //     );
+          //     print('User registered and data stored successfully');
+          //   }).catchError((error) {
+          //     print('Error storing user data: $error');
+          //   });
+          // }).catchError((error) {
+          //   print('Registration error: $error');
+          // });
+        },
 
         child: const Text(
           'REGISTER',
