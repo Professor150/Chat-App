@@ -46,6 +46,7 @@
 -  sn_progress_dialog: ^1.1.3
 -  pinput: ^2.2.31
 
+
 ## Usage
 - Upon launching the app, you will be presented with the Splash screen.
 - Explore the different sections of the app to get a better understanding of    its features.  
