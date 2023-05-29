@@ -106,49 +106,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     );
   }
 
-  // Widget _buildPhoneNumber() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: <Widget>[
-  //       const Text(
-  //         'Phone Number',
-  //         style: labelStyle,
-  //       ),
-  //       const SizedBox(height: 10.0),
-  //       Container(
-  //         alignment: Alignment.centerLeft,
-  //         decoration: boxDecorationStyle,
-  //         height: 60.0,
-  //         child: TextFormField(
-  //           keyboardType: TextInputType.number,
-  //           controller: phoneNumberController,
-  //           validator: (value) {
-  //             if (value == null || value.isEmpty) {
-  //               return 'Phone Number is required';
-  //             }
-  //             return null;
-  //           },
-  //           onSaved: (input) => _phoneNumber = input!,
-  //           style: const TextStyle(
-  //             color: Colors.black,
-  //             fontFamily: 'OpenSans',
-  //           ),
-  //           decoration: InputDecoration(
-  //             border: InputBorder.none,
-  //             contentPadding: const EdgeInsets.only(top: 14.0),
-  //             prefixIcon: const Icon(
-  //               Icons.phone_android_outlined,
-  //               color: AppColors.iconColor,
-  //             ),
-  //             hintText: 'Enter Phone Number',
-  //             hintStyle: hintTextStyle,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _buildPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -37,13 +37,13 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
                   },
                   child: const Text('Login Page'),
                 ),
-                Spacer(),
-                Text(
+                const Spacer(),
+                const Text(
                   'Name',
                   style: TextStyle(fontSize: 20),
                 ),
-                Spacer(),
-                Icon(Icons.info),
+                const Spacer(),
+                const Icon(Icons.info),
               ],
             ),
           ),
@@ -52,7 +52,7 @@ class _ChatPageWidgetState extends State<ChatPageWidget> {
           height: fullHeight(context) * .75,
           width: fullWidth(context),
           color: AppColors.transparentBackgroundColor,
-          child: Text('AA'),
+          child: const Text('AA'),
         ),
         Container(
           color: AppColors.iconColor,
