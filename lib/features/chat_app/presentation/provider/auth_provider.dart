@@ -1,4 +1,4 @@
-import 'package:chat/core/utils/firestore_constants.dart';
+import 'package:chat/core/constants/firestore_constants.dart';
 import 'package:chat/core/utils/global_variables.dart';
 import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

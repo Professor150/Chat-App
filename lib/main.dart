@@ -1,10 +1,9 @@
 import 'package:chat/core/app_route/app_route.dart';
 import 'package:chat/core/utils/global_variables.dart';
-import 'package:chat/features/chat_app/domain/repositories/chat_repository.dart';
-import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,8 +11,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +39,9 @@ class MyApp extends StatelessWidget {
                 firebaseAuth: fAuth!,
                 firebaseFirestore: firebaseFirestore,
                 sharedPreferences: sharedPreferences)),
-        ChangeNotifierProvider(create: (_) => ChatListRepository()),
+        Provider<HomePageProvider>(
+            create: (_) =>
+                HomePageProvider(firebaseFirestore: firebaseFirestore)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,7 +50,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const ChatPage();
+              return const HomePage();
             } else {
               return const LoginPage();
             }
