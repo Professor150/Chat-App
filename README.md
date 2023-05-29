@@ -56,6 +56,16 @@
 
 
 ## Screenshots
+### Splash Page
+![Splash Screen](https://github.com/vurilo/chat-application/assets/132996901/e17ada75-a158-4ac9-b151-0dd1e36df7d6)
+### Login Page
+![Login Page](https://github.com/vurilo/chat-application/assets/132996901/9243cc9b-c5d1-4abf-8266-3fbb2526d99a)
+### SignUp Page
+![SignUp Screen](https://github.com/vurilo/chat-application/assets/132996901/6bda14b2-9d44-4f59-b9bf-794db00f13ec)
+### Forgot Page
+![Forgot Screen](https://github.com/vurilo/chat-application/assets/132996901/e64e98f0-1e12-4ab5-980d-d5e7eaf1d5ca)
+### Chat Page
+![Chat Screen](https://github.com/vurilo/chat-application/assets/132996901/1acce357-1ac0-4447-b88f-eeae1b6de4d9)
 
 
 
