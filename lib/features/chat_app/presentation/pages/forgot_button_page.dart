@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ForgotButton extends StatelessWidget {
   TextEditingController emailController;
-  ForgotButton({required this.emailController});
+  ForgotButton({super.key, required this.emailController});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class ForgotButton extends StatelessWidget {
                           ),
                           actions: [
                             TextButton(
-                              child: Text('OK'),
+                              child: const Text('OK'),
                               onPressed: () {
                                 Navigator.pushNamed(context, '/loginPage');
                               },
@@ -58,7 +58,7 @@ class ForgotButton extends StatelessWidget {
                       },
                     );
                   }).catchError((error) {
-                    showDialog(                                     
+                    showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
@@ -69,7 +69,7 @@ class ForgotButton extends StatelessWidget {
                           ),
                           actions: [
                             TextButton(
-                              child: Text('OK'),
+                              child: const Text('OK'),
                               onPressed: () {
                                 Navigator.pop(context);
                               },
