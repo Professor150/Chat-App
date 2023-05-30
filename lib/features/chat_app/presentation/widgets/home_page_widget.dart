@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:chat/core/constants/firestore_constants.dart';
 import 'package:chat/core/utils/debouncer.dart';
+import 'package:chat/core/utils/global_variables.dart';
 import 'package:chat/core/utils/keyboard.dart';
 import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
@@ -15,7 +16,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:chat/core/constants/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
@@ -27,7 +27,6 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  // late FirebaseMessaging firebaseMessaging;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -71,7 +70,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   }
 
   void registerNotification() {
-    // firebaseMessaging.requestPermission();
+    firebaseMessaging.requestPermission();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('onMessage: $message');
@@ -81,14 +80,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       return;
     });
 
-    // firebaseMessaging.getToken().then((token) {
-    //   print('push token: $token');
-    //   if (token != null) {
-    //     homePageProvider.updateDataFirestore(FirestoreConstants.pathUserCollection, currentUserId, {'pushToken': token});
-    //   }
-    // }).catchError((err) {
-    //   Fluttertoast.showToast(msg: err.message.toString());
-    // });
+    firebaseMessaging.getToken().then((token) {
+      print('push token: $token');
+      if (token != null) {
+        homePageProvider.updateDataFirestore(
+            FirestoreConstants.pathUserCollection,
+            currentUserId,
+            {'pushToken': token});
+      }
+    }).catchError((err) {
+      Fluttertoast.showToast(msg: err.message.toString());
+    });
   }
 
   void showNotification(RemoteNotification remoteNotification) async {
