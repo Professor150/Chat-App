@@ -1,4 +1,4 @@
-import 'package:chat/core/utils/constants.dart';
+import 'package:chat/core/constants/constants.dart';
 import 'package:chat/features/chat_app/presentation/pages/phone_number_login_page.dart';
 import 'package:chat/features/chat_app/presentation/widgets/otp_input_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +14,6 @@ class OptPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: const Color(0xFF59B6B0),
       appBar: AppBar(
         elevation: 0,

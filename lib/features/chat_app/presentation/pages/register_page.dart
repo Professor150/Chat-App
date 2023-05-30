@@ -2,7 +2,7 @@
 // import 'package:find_a_mechanic/nav/login.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:chat/core/utils/constants.dart';
+import 'package:chat/core/constants/constants.dart';
 import 'package:chat/features/chat_app/presentation/widgets/register_page_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +60,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   Container(
                     color: AppColors.background,
-
                     child: Image.asset("assets/images/logo.png"),
                   ),
                   const SizedBox(height: 30.0),

@@ -3,7 +3,7 @@ import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart'
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:chat/core/utils/constants.dart';
+import 'package:chat/core/constants/constants.dart';
 
 import 'package:chat/features/chat_app/data/models/register_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
