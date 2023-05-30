@@ -7,7 +7,10 @@ import 'package:chat/core/utils/debouncer.dart';
 import 'package:chat/core/utils/global_variables.dart';
 import 'package:chat/core/utils/keyboard.dart';
 import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
+import 'package:chat/features/chat_app/data/models/chat_page_arguments_model.dart';
+import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
+import 'package:chat/features/chat_app/presentation/widgets/chat_page_widget.dart';
 import 'package:chat/features/chat_app/presentation/widgets/loading.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:chat/features/chat_app/data/models/popup_choices.dart';
@@ -104,7 +107,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       priority: Priority.high,
     );
     DarwinNotificationDetails iOSPlatformChannelSpecifics =
-        DarwinNotificationDetails();
+        const DarwinNotificationDetails();
     NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
       iOS: iOSPlatformChannelSpecifics,
@@ -155,7 +158,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             contentPadding: EdgeInsets.zero,
             children: <Widget>[
               Container(
-                color: AppColors.transparentBackgroundColor,
+                color: AppColors.backgroundColor,
                 padding: EdgeInsets.only(bottom: 10, top: 10),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -182,50 +185,55 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ],
                 ),
               ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context, 0);
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        Icons.cancel,
-                        color: AppColors.backgroundColor,
-                      ),
-                      margin: EdgeInsets.only(right: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.pop(context, 0);
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Icon(
+                            Icons.cancel,
+                            color: AppColors.backgroundColor,
+                          ),
+                          margin: EdgeInsets.only(right: 10),
+                        ),
+                        Text(
+                          'Cancel',
+                          style: TextStyle(
+                              color: AppColors.textColor,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
                     ),
-                    Text(
-                      'Cancel',
-                      style: TextStyle(
-                          color: AppColors.textColor,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context, 1);
-                },
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      child: Icon(
-                        Icons.check_circle,
-                        color: AppColors.backgroundColor,
-                      ),
-                      margin: EdgeInsets.only(right: 10),
+                  ),
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.pop(context, 1);
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Icon(
+                            Icons.check_circle,
+                            color: AppColors.backgroundColor,
+                          ),
+                          margin: EdgeInsets.only(right: 10),
+                        ),
+                        Text(
+                          'Yes',
+                          style: TextStyle(
+                              color: AppColors.textColor,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
                     ),
-                    Text(
-                      'Yes',
-                      style: TextStyle(
-                          color: AppColors.textColor,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
+                  ),
+                ],
+              )
             ],
           );
         })) {
@@ -239,6 +247,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.lightGrey,
       body: SafeArea(
         child: WillPopScope(
           child: Stack(
@@ -413,83 +422,100 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       if (userChat.id == currentUserId) {
         return SizedBox.shrink();
       } else {
-        return Container(
-          child: TextButton(
-            child: Row(
-              children: <Widget>[
-                Material(
-                  child: userChat.photoUrl.isNotEmpty
-                      ? Image.network(
-                          userChat.photoUrl,
-                          fit: BoxFit.cover,
-                          width: 50,
-                          height: 50,
-                          loadingBuilder: (BuildContext context, Widget child,
-                              ImageChunkEvent? loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Container(
-                              width: 50,
-                              height: 50,
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  color: AppColors.backgroundColor,
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
+        return Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Container(
+            child: TextButton(
+              child: Row(
+                children: <Widget>[
+                  Material(
+                    child: userChat.photoUrl.isNotEmpty
+                        ? Image.network(
+                            userChat.photoUrl,
+                            fit: BoxFit.cover,
+                            width: 50,
+                            height: 50,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Container(
+                                width: 50,
+                                height: 50,
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.backgroundColor,
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, object, stackTrace) {
-                            return Icon(
-                              Icons.account_circle,
-                              size: 50,
-                              color: AppColors.backgroundColor,
-                            );
-                          },
-                        )
-                      : Icon(
-                          Icons.account_circle,
-                          size: 50,
-                          color: AppColors.backgroundColor,
-                        ),
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  clipBehavior: Clip.hardEdge,
-                ),
-                Flexible(
-                  child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            'Name: ${userChat.name}',
-                            maxLines: 1,
-                            style: TextStyle(color: AppColors.textColor),
+                              );
+                            },
+                            errorBuilder: (context, object, stackTrace) {
+                              return Icon(
+                                Icons.account_circle,
+                                size: 50,
+                                color: AppColors.backgroundColor,
+                              );
+                            },
+                          )
+                        : Icon(
+                            Icons.account_circle,
+                            size: 50,
+                            color: AppColors.backgroundColor,
                           ),
-                          alignment: Alignment.centerLeft,
-                          margin: EdgeInsets.fromLTRB(10, 0, 0, 5),
-                        )
-                      ],
-                    ),
-                    margin: EdgeInsets.only(left: 20),
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    clipBehavior: Clip.hardEdge,
                   ),
-                ),
-              ],
+                  Flexible(
+                    child: Container(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              'Name: ${userChat.name}',
+                              maxLines: 1,
+                              style: TextStyle(color: AppColors.textColor),
+                            ),
+                            alignment: Alignment.centerLeft,
+                            margin: EdgeInsets.fromLTRB(10, 0, 0, 5),
+                          )
+                        ],
+                      ),
+                      margin: EdgeInsets.only(left: 20),
+                    ),
+                  ),
+                ],
+              ),
+              onPressed: () {
+                if (KeyBoardUtil.isKeyboardShowing()) {
+                  KeyBoardUtil.closeKeyboard(context);
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatPageWidget(
+                      arguments: ChatPageArguments(
+                        peerId: userChat.id,
+                        peerAvatar: userChat.photoUrl,
+                        peerName: userChat.name,
+                      ),
+                    ),
+                  ),
+                );
+                // Navigator.pushNamed(context, '/chatPage');
+              },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      AppColors.transparentBackgroundColor),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(25))))),
             ),
-            onPressed: () {
-              if (KeyBoardUtil.isKeyboardShowing()) {
-                KeyBoardUtil.closeKeyboard(context);
-              }
-              Navigator.pushNamed(context, '/chaptPage');
-            },
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                    AppColors.transparentBackgroundColor),
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))))),
           ),
         );
       }

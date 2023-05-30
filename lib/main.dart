@@ -3,6 +3,7 @@ import 'package:chat/core/utils/global_variables.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   MyApp({super.key, required this.sharedPreferences});
+  final AppRouter appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,17 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(
-                firebaseAuth: fAuth!,
+                firebaseAuth: fAuth,
                 firebaseFirestore: firebaseFirestore,
                 sharedPreferences: sharedPreferences)),
         Provider<HomePageProvider>(
             create: (_) =>
                 HomePageProvider(firebaseFirestore: firebaseFirestore)),
+        Provider(
+            create: (_) => ChatProvider(
+                firebaseFirestore: firebaseFirestore,
+                prefs: sharedPreferences,
+                firebaseStorage: firebaseStorage))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -56,7 +63,7 @@ class MyApp extends StatelessWidget {
             }
           },
         ),
-        onGenerateRoute: AppRouter.generateRoute,
+        onGenerateRoute: appRouter.generateRoute,
       ),
     );
   }
