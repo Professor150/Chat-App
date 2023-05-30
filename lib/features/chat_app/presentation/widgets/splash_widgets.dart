@@ -1,4 +1,4 @@
-import 'package:chat/core/utils/constants.dart';
+import 'package:chat/core/constants/constants.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/widgets/splash_privacy_policy_text.dart';
 import 'package:flutter/material.dart';

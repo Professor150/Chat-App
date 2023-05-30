@@ -6,6 +6,7 @@ import 'package:chat/features/chat_app/presentation/pages/opt_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/page_not_found.dart';
 import 'package:chat/features/chat_app/presentation/pages/phone_number_login_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/register_page.dart';
+import 'package:chat/features/chat_app/presentation/pages/settings_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,8 @@ class AppRouter {
 
       case '/homePage':
         return MaterialPageRoute(builder: (_) => const HomePage());
+      case '/settingsPage':
+        return MaterialPageRoute(builder: (_) => const SettingsPage());
       case '/chatPage':
         return MaterialPageRoute(builder: (_) => const ChatPage());
       case '/forgot':

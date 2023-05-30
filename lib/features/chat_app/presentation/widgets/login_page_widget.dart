@@ -4,7 +4,7 @@ import 'package:chat/features/chat_app/presentation/pages/register_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:chat/core/utils/constants.dart';
+import 'package:chat/core/constants/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 

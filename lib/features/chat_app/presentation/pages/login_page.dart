@@ -1,6 +1,6 @@
 import 'package:chat/features/chat_app/presentation/widgets/login_page_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:chat/core/utils/constants.dart';
+import 'package:chat/core/constants/constants.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -85,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Container(
                           color: AppColors.background,
-
                           child: Image.asset("assets/images/logo.png"),
                         ),
                         const SizedBox(height: 30.0),
