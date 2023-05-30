@@ -54,6 +54,7 @@ class AuthProvider extends ChangeNotifier {
       password: password,
     ))
             .user;
+    //New user found, so writing data to server
     if (firebaseUser != null) {
       firebaseFirestore
           .collection(FirestoreConstants.pathUserCollection)
@@ -82,7 +83,6 @@ class AuthProvider extends ChangeNotifier {
       _status = Status.authenticateError;
       return false;
     }
-    //New user found, so writing data to server
   }
 
   Future<bool> handleSignIn(String email, String password) async {
@@ -121,6 +121,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> handleSignOut() async {
     _status = Status.uninitialized;
-    await fAuth!.signOut();
+    await fAuth.signOut();
+    notifyListeners();
   }
 }
