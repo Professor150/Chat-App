@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   int i = 0;
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   // Map userProfile;
   bool _isLogged = false;
@@ -66,31 +65,28 @@ class _LoginPageState extends State<LoginPage> {
                     horizontal: 10.0,
                     vertical: 100.0,
                   ),
-                  child: Form(
-                    key: _formkey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text(
-                          'Log In',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'OpenSans',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text(
+                        'Log In',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'OpenSans',
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          color: AppColors.background,
-                          child: Image.asset("assets/images/logo.png"),
-                        ),
-                        const SizedBox(height: 30.0),
-                        const LoginPageWidget(),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        color: AppColors.background,
+                        child: Image.asset("assets/images/logo.png"),
+                      ),
+                      const SizedBox(height: 30.0),
+                      const LoginPageWidget(),
+                    ],
                   ),
                 ),
               ),

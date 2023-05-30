@@ -28,15 +28,17 @@ class MyApp extends StatelessWidget {
   final SharedPreferences sharedPreferences;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+
   MyApp({super.key, required this.sharedPreferences});
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(
-                firebaseAuth: fAuth!,
+                firebaseAuth: fAuth,
                 firebaseFirestore: firebaseFirestore,
                 sharedPreferences: sharedPreferences)),
         Provider<HomePageProvider>(
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (firebaseUser != null) {
               return const HomePage();
             } else {
               return const LoginPage();
