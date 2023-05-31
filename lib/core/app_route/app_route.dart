@@ -1,6 +1,5 @@
 import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
 import 'package:chat/features/chat_app/data/models/chat_page_arguments_model.dart';
-import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/forgot_button_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
