@@ -37,6 +37,7 @@ class AppColors {
 class ImagePath {
   static const String vurilo = 'assets/images/vurilo.png';
   static const String splashImage = 'assets/images/logo.png';
+  static const String profileImage = 'assets/images/professor.jpg';
 }
 
 double fullWidth(BuildContext context) {

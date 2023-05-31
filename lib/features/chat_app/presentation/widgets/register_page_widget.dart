@@ -1,12 +1,12 @@
+import 'package:chat/core/constants/validator_constants.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:chat/core/constants/constants.dart';
 
-import 'package:chat/features/chat_app/data/models/register_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPageWidget extends StatefulWidget {
@@ -17,8 +17,8 @@ class RegisterPageWidget extends StatefulWidget {
 }
 
 class _RegisterPageWidgetState extends State<RegisterPageWidget> {
-  // ignore: unused_field
-  late String _email, _name, _password, _confirmPassword, _phoneNumber;
+  late String email, name, password, confirmPassword, phoneNumber;
+  final _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
   bool _obscureText1 = true;
   TextEditingController emailController = TextEditingController();
@@ -47,7 +47,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
               }
               return null;
             },
-            onSaved: (input) => _name = input!,
+            onSaved: (value) => name = value!,
             style: const TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -85,12 +85,15 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
             keyboardType: TextInputType.emailAddress,
             controller: emailController,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Email is required';
+              if (value!.isEmpty) {
+                return 'Please enter your email';
+              }
+              if (!validateEmail(value)) {
+                return 'Please enter a valid email address';
               }
               return null;
             },
-            onSaved: (input) => _email = input!,
+            onSaved: (value) => email = value!,
             style: const TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -111,49 +114,6 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     );
   }
 
-  // Widget _buildPhoneNumber() {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: <Widget>[
-  //       const Text(
-  //         'Phone Number',
-  //         style: labelStyle,
-  //       ),
-  //       const SizedBox(height: 10.0),
-  //       Container(
-  //         alignment: Alignment.centerLeft,
-  //         decoration: boxDecorationStyle,
-  //         height: 60.0,
-  //         child: TextFormField(
-  //           keyboardType: TextInputType.number,
-  //           controller: phoneNumberController,
-  //           validator: (value) {
-  //             if (value == null || value.isEmpty) {
-  //               return 'Phone Number is required';
-  //             }
-  //             return null;
-  //           },
-  //           onSaved: (input) => _phoneNumber = input!,
-  //           style: const TextStyle(
-  //             color: Colors.black,
-  //             fontFamily: 'OpenSans',
-  //           ),
-  //           decoration: InputDecoration(
-  //             border: InputBorder.none,
-  //             contentPadding: const EdgeInsets.only(top: 14.0),
-  //             prefixIcon: const Icon(
-  //               Icons.phone_android_outlined,
-  //               color: AppColors.iconColor,
-  //             ),
-  //             hintText: 'Enter Phone Number',
-  //             hintStyle: hintTextStyle,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
   Widget _buildPhoneNumber() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,35 +124,19 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
         ),
         const SizedBox(height: 10.0),
         Container(
-          alignment: Alignment.centerLeft,
-          decoration: boxDecorationStyle,
-          height: 60.0,
-          child: TextFormField(
-            keyboardType: TextInputType.number,
-            controller: phoneNumberController,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Phone Number is required';
-              }
-              return null;
-            },
-            onSaved: (input) => _phoneNumber = input!,
-            style: const TextStyle(
-              color: Colors.black,
-              fontFamily: 'OpenSans',
+            height: fullHeight(context) * 0.1,
+            width: fullWidth(context) * 0.8,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
             ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.only(top: 14.0),
-              prefixIcon: const Icon(
-                Icons.phone_android_outlined,
-                color: AppColors.iconColor,
-              ),
-              hintText: 'Enter Phone Number',
-              hintStyle: hintTextStyle,
-            ),
-          ),
-        ),
+            child: IntlPhoneField(
+              controller: phoneNumberController,
+              initialCountryCode: 'NP',
+              onChanged: (phone) {
+                print(phone.completeNumber);
+              },
+            )),
       ],
     );
   }
@@ -212,12 +156,15 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
           child: TextFormField(
             controller: passwordController,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Password is required';
+              if (value!.isEmpty) {
+                return 'Please enter your password';
+              }
+              if (!validatePassword(value)) {
+                return 'Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit';
               }
               return null;
             },
-            onSaved: (input) => _password = input!,
+            onSaved: (value) => password = value!,
             obscureText: _obscureText,
             style: const TextStyle(
               color: Colors.black,
@@ -264,11 +211,12 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
             controller: confirmPasswordController,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Password is required';
+                return 'Confirm Password is required';
               }
+
               return null;
             },
-            onSaved: (input) => _confirmPassword = input!,
+            onSaved: (input) => confirmPassword = input!,
             obscureText: _obscureText1,
             style: const TextStyle(
               color: Colors.black,
@@ -304,7 +252,7 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
       case Status.authenticateError:
         Fluttertoast.showToast(msg: "Sign up failed.");
         break;
-      case Status.authenticated:
+      case Status.authenticated1:
         Fluttertoast.showToast(msg: "Sign up Successful.");
         break;
       default:
@@ -315,12 +263,13 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
       width: double.infinity,
       child: ElevatedButton(
         style: ButtonStyle(
+          // backgroundColor: Colors.black87,
           overlayColor: MaterialStateProperty.resolveWith<Color?>(
             (Set<MaterialState> states) {
               if (states.contains(MaterialState.pressed)) {
                 return const Color.fromARGB(255, 211, 159, 153);
               }
-              return const Color(0xFFF2796B);
+              return null;
             },
           ),
         ),
@@ -328,42 +277,20 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
         // pradeep changes
         onPressed: () {
           String name = nameController.text;
+          String phoneNumber = phoneNumberController.text;
           String email = emailController.text;
           String password = passwordController.text;
 
-          authProvider.handleSignUp(name, email, password).then((isSuccess) {
-            if (isSuccess) {
-              Navigator.pushNamed(context, "/loginPage");
-            }
-          });
-
-          // FirebaseAuth.instance
-          //     .createUserWithEmailAndPassword(
-          //   email: email,
-          //   password: password,
-          // )
-          //     .then((UserCredential userCredential) {
-          //   String userId = userCredential.user!.uid;
-
-          //   FirebaseFirestore.instance.collection('users').doc(userId).set({
-          //     'password': password,
-          //     'email': email,
-          //     'name': name,
-          //   }).then((value) {
-          //     _showSuccessMessage(context);
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (_) => const LoginPage(),
-          //       ),
-          //     );
-          //     print('User registered and data stored successfully');
-          //   }).catchError((error) {
-          //     print('Error storing user data: $error');
-          //   });
-          // }).catchError((error) {
-          //   print('Registration error: $error');
-          // });
+          if (_formKey.currentState!.validate()) {
+            (_formKey.currentState!.save());
+            authProvider
+                .handleSignUp(name, phoneNumber, email, password)
+                .then((isSuccess) {
+              if (isSuccess) {
+                Navigator.pushNamed(context, "/loginPage");
+              }
+            });
+          }
         },
 
         child: const Text(
@@ -379,28 +306,54 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
     );
   }
 
-  void _showSuccessMessage(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Signup successful'),
-        duration: Duration(seconds: 2),
+  Widget _buildSigninBtn(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      child: Row(
+        children: [
+          const Text(
+            "Already have an account?",
+            style: TextStyle(fontSize: 18),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const LoginPage())),
+            child: const Text("Sign In",
+                style: TextStyle(
+                  color: Color(0xFFF2796B),
+                  fontSize: 18,
+                )),
+          ),
+        ],
       ),
     );
   }
 
-  // pradeep changes
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildUsername(),
-        // _buildPhoneNumber(),
-        _buildEmail(),
-        _buildPassword(),
-        _buildConfirmPassword(),
-        _buildRegisterButton(context),
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          _buildUsername(),
+          _buildPhoneNumber(),
+          _buildEmail(),
+          _buildPassword(),
+          _buildConfirmPassword(),
+          _buildRegisterButton(context),
+          _buildSigninBtn(context),
+        ],
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    phoneNumberController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
   }
 }

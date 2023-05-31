@@ -1,8 +1,7 @@
-import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
-import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
+import 'package:chat/core/constants/validator_constants.dart';
 import 'package:chat/features/chat_app/presentation/pages/register_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:chat/core/constants/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -17,14 +16,9 @@ class LoginPageWidget extends StatefulWidget {
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
   int i = 0;
-
-  // ignore: unused_field
-  late String _email, _password;
+  late String email, password;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  // Map userProfile;
-  bool _isloading = false;
   bool _obscureText = true;
 
   Widget _buildEmailTF() {
@@ -54,12 +48,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Email is required';
+              if (value!.isEmpty) {
+                return 'Please enter your email';
+              }
+              if (!validateEmail(value)) {
+                return 'Please enter a valid email address';
               }
               return null;
             },
-            onSaved: (input) => _email = input!,
+            onSaved: (input) => email = input!,
             style: const TextStyle(
               color: Colors.black,
               fontFamily: 'OpenSans',
@@ -105,13 +102,22 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           height: 60.0,
           child: TextFormField(
             controller: passwordController,
+            // validator: (value) {
+            //   if (value == null || value.isEmpty) {
+            //     return 'Password is required';
+            //   }
+            //   return null;
+            // },
             validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Password is required';
+              if (value!.isEmpty) {
+                return 'Please enter your phone number';
+              }
+              if (!validatePhoneNumber(value)) {
+                return 'Please enter a valid phone number';
               }
               return null;
             },
-            onSaved: (input) => _password = input!,
+            onSaved: (input) => password = input!,
             obscureText: _obscureText,
             style: const TextStyle(
               color: Colors.black,
@@ -197,23 +203,6 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               Navigator.pushNamed(context, '/homePage');
             }
           });
-
-          // FirebaseAuth.instance
-          //     .signInWithEmailAndPassword(
-          //   email: email,
-          //   password: password,
-          // )
-          //     .then((UserCredential userCredential) {
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (_) => const HomePage(),
-          //     ),
-          //   );
-          //   print('Login successful');
-          // }).catchError((error) {
-          //   print('Login error: $error');
-          // });
         },
         child: const Text(
           'LOGIN',
@@ -276,11 +265,5 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
-  }
-
-  Future<void> _login() async {
-    setState(() {
-      _isloading = true; // Set loading indicator state to true
-    });
   }
 }
