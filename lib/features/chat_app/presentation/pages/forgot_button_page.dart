@@ -1,6 +1,8 @@
+import 'package:chat/core/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ForgotButton extends StatelessWidget {
   TextEditingController emailController;
   ForgotButton({super.key, required this.emailController});
@@ -8,6 +10,7 @@ class ForgotButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [

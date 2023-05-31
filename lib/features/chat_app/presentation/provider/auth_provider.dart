@@ -46,8 +46,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool> handleSignUp(
-      String name, String phoneNumber, String email, String password) async {
+  Future<bool> handleSignUp(String name, String email, String password) async {
     _status = Status.authenticating;
     notifyListeners();
     User? firebaseUser =
@@ -64,7 +63,6 @@ class AuthProvider extends ChangeNotifier {
           .set({
         FirestoreConstants.email: email,
         FirestoreConstants.name: name,
-        FirestoreConstants.phoneNumber: phoneNumber,
         FirestoreConstants.password: password,
         FirestoreConstants.photoUrl: firebaseUser.photoURL,
         FirestoreConstants.id: firebaseUser.uid,
@@ -117,14 +115,16 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  //
   void handleException() {
     _status = Status.authenticateException;
     notifyListeners();
   }
 
-  Future<void> handleSignOut() async {
+  Future<void> handleSignOut(context) async {
     _status = Status.uninitialized;
     await fAuth.signOut();
     notifyListeners();
+    Navigator.popAndPushNamed(context, '/loginPage');
   }
 }

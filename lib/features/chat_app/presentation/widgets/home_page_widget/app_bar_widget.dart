@@ -19,7 +19,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   ];
   void onItemMenuPress(PopupChoices choice) {
     if (choice.title == 'Log out') {
-      authProvider.handleSignOut();
+      authProvider.handleSignOut(context);
     } else {
       Navigator.pushNamed(context, '/settingsPage');
     }

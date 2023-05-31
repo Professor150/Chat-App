@@ -4,11 +4,11 @@ import 'package:chat/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 Future<bool> onBackPress(BuildContext context) {
-  openDialog(context);
+  openDialog(context, '');
   return Future.value(false);
 }
 
-Future<void> openDialog(BuildContext context) async {
+Future<void> openDialog(BuildContext context, String text) async {
   switch (await showDialog(
       context: context,
       builder: (BuildContext context) {

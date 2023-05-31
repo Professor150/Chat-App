@@ -12,7 +12,8 @@ bool validatePassword(String password) {
   // This pattern enforces at least 8 characters and
   // at least one uppercase letter, one lowercase letter,
   // and one digit.
-  const pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$';
+  const pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
   final regExp = RegExp(pattern);
   return regExp.hasMatch(password);
 }
