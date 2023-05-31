@@ -1,9 +1,10 @@
 import 'package:chat/core/app_route/app_route.dart';
 import 'package:chat/core/utils/global_variables.dart';
-import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
+import 'package:chat/features/chat_app/data/models/profile_model.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
+import 'package:chat/features/chat_app/presentation/widgets/homepage_bottom_nav_bar_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
         Provider<HomePageProvider>(
             create: (_) =>
                 HomePageProvider(firebaseFirestore: firebaseFirestore)),
+        ChangeNotifierProvider(
+          create: (context) => ProfileProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -50,7 +54,7 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return const HomePage();
+              return CustomBottomNavigationBar();
             } else {
               return const LoginPage();
             }

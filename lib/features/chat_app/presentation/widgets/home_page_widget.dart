@@ -15,8 +15,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:chat/core/constants/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class HomePageWidget extends StatefulWidget {
@@ -80,15 +78,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       }
       return;
     });
-
-    // firebaseMessaging.getToken().then((token) {
-    //   print('push token: $token');
-    //   if (token != null) {
-    //     homePageProvider.updateDataFirestore(FirestoreConstants.pathUserCollection, currentUserId, {'pushToken': token});
-    //   }
-    // }).catchError((err) {
-    //   Fluttertoast.showToast(msg: err.message.toString());
-    // });
   }
 
   void showNotification(RemoteNotification remoteNotification) async {
@@ -243,7 +232,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             children: <Widget>[
               Column(
                 children: [
-                  buildAppBar(context),
+                  // buildAppBar(context),
                   buildSearchBar(),
                   Expanded(
                     child: StreamBuilder<QuerySnapshot>(
