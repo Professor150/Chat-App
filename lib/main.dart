@@ -4,6 +4,7 @@ import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_list_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_page_list_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/search_bar_provider.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
                 sharedPreferences: sharedPreferences)),
         ChangeNotifierProvider(create: (_) => SearchBarProvider()),
         ChangeNotifierProvider(create: (_) => ChatListProvider()),
+        ChangeNotifierProvider(create: (_) => ChatPageListProvider()),
         Provider<HomePageProvider>(
             create: (_) =>
                 HomePageProvider(firebaseFirestore: firebaseFirestore)),

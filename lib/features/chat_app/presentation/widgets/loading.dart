@@ -5,12 +5,12 @@ class LoadingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
+      color: Colors.white.withOpacity(0.8),
+      child: const Center(
         child: CircularProgressIndicator(
           color: AppColors.backgroundColor,
         ),
       ),
-      color: Colors.white.withOpacity(0.8),
     );
   }
 }
@@ -29,8 +29,8 @@ class LoadingViewCenter extends StatelessWidget {
 }
 
 class LoadingViewImage extends StatefulWidget {
-  ImageChunkEvent? loadingProgress;
-  LoadingViewImage({super.key, required this.loadingProgress});
+  final ImageChunkEvent? loadingProgress;
+  const LoadingViewImage({super.key, required this.loadingProgress});
 
   @override
   State<LoadingViewImage> createState() => _LoadingViewImageState();

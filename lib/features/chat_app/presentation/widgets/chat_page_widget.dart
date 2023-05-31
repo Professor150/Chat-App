@@ -8,6 +8,7 @@ import 'package:chat/features/chat_app/data/models/user_chat.dart';
 import 'package:chat/features/chat_app/presentation/pages/full_photo_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_page_list_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/widgets/loading.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,9 +31,8 @@ class ChatPageWidget extends StatefulWidget {
 class ChatPageWidgetState extends State<ChatPageWidget> {
   late final String currentUserId;
 
-  List<QueryDocumentSnapshot> listMessage = [];
-  int _limit = 20;
-  int _limitIncrement = 20;
+  // List<QueryDocumentSnapshot> listMessage = [];
+
   String groupChatId = "";
 
   File? imageFile;
@@ -41,30 +41,22 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
   String imageUrl = "";
 
   final TextEditingController textEditingController = TextEditingController();
-  final ScrollController listScrollController = ScrollController();
+
   final FocusNode focusNode = FocusNode();
 
-  late final ChatProvider chatProvider = context.read<ChatProvider>();
-  late final AuthProvider authProvider = context.read<AuthProvider>();
+  late final ChatProvider chatProvider =
+      Provider.of<ChatProvider>(context, listen: false);
+  late final AuthProvider authProvider =
+      Provider.of<AuthProvider>(context, listen: false);
+  late final ChatPageListProvider chatPageListProvider =
+      Provider.of<ChatPageListProvider>(context, listen: false);
 
   @override
   void initState() {
     super.initState();
     focusNode.addListener(onFocusChange);
-    listScrollController.addListener(_scrollListener);
+    chatPageListProvider.addListener;
     readLocal();
-  }
-
-  _scrollListener() {
-    if (!listScrollController.hasClients) return;
-    if (listScrollController.offset >=
-            listScrollController.position.maxScrollExtent &&
-        !listScrollController.position.outOfRange &&
-        _limit <= listMessage.length) {
-      setState(() {
-        _limit += _limitIncrement;
-      });
-    }
   }
 
   void onFocusChange() {
@@ -149,8 +141,8 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
       textEditingController.clear();
       chatProvider.sendMessage(
           content, type, groupChatId, currentUserId, widget.arguments.peerId);
-      if (listScrollController.hasClients) {
-        listScrollController.animateTo(0,
+      if (chatPageListProvider.listScrollController.hasClients) {
+        chatPageListProvider.listScrollController.animateTo(0,
             duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
       }
     } else {
@@ -418,7 +410,8 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
 
   bool isLastMessageLeft(int index) {
     if ((index > 0 &&
-            listMessage[index - 1].get(FirestoreConstants.idFrom) ==
+            chatPageListProvider.listMessage[index - 1]
+                    .get(FirestoreConstants.idFrom) ==
                 currentUserId) ||
         index == 0) {
       return true;
@@ -429,7 +422,8 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
 
   bool isLastMessageRight(int index) {
     if ((index > 0 &&
-            listMessage[index - 1].get(FirestoreConstants.idFrom) !=
+            chatPageListProvider.listMessage[index - 1]
+                    .get(FirestoreConstants.idFrom) !=
                 currentUserId) ||
         index == 0) {
       return true;
@@ -508,27 +502,27 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 TextButton(
-                  onPressed: () => onSendMessage('mimi1', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('a', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi1.gif',
+                    'assets/images/gif/a.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
                 TextButton(
-                  onPressed: () => onSendMessage('mimi2', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('b', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi2.gif',
+                    'assets/images/gif/b.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
                 TextButton(
-                  onPressed: () => onSendMessage('mimi3', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('c', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi3.gif',
+                    'assets/images/gif/c.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
@@ -540,27 +534,27 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 TextButton(
-                  onPressed: () => onSendMessage('mimi4', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('d', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi4.gif',
+                    'assets/images/gif/d.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
                 TextButton(
-                  onPressed: () => onSendMessage('mimi5', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('e', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi5.gif',
+                    'assets/images/gif/e.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
                 TextButton(
-                  onPressed: () => onSendMessage('mimi6', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('f', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi6.gif',
+                    'assets/images/gif/f.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
@@ -572,27 +566,27 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 TextButton(
-                  onPressed: () => onSendMessage('mimi7', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('g', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi7.gif',
+                    'assets/images/gif/g.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
                 TextButton(
-                  onPressed: () => onSendMessage('mimi8', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('h', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi8.gif',
+                    'assets/images/gif/h.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
                   ),
                 ),
                 TextButton(
-                  onPressed: () => onSendMessage('mimi9', TypeMessage.sticker),
+                  onPressed: () => onSendMessage('i', TypeMessage.sticker),
                   child: Image.asset(
-                    'images/mimi9.gif',
+                    'assets/images/gif/i.gif',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,
@@ -687,22 +681,23 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
     return Flexible(
       child: groupChatId.isNotEmpty
           ? StreamBuilder<QuerySnapshot>(
-              stream: chatProvider.getChatStream(groupChatId, _limit),
+              stream: chatProvider.getChatStream(
+                  groupChatId, chatPageListProvider.limit),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
-                  listMessage = snapshot.data!.docs;
-                  if (listMessage.length > 0) {
+                  chatPageListProvider.listMessage = snapshot.data!.docs;
+                  if (chatPageListProvider.listMessage.length > 0) {
                     return ListView.builder(
                       padding: const EdgeInsets.all(10),
                       itemBuilder: (context, index) =>
                           buildItem(index, snapshot.data?.docs[index]),
                       itemCount: snapshot.data?.docs.length,
                       reverse: true,
-                      controller: listScrollController,
+                      controller: chatPageListProvider.listScrollController,
                     );
                   } else {
-                    return const Center(child: Text("No message here yet..."));
+                    return const Center(child: Text("No Messages"));
                   }
                 } else {
                   return const LoadingViewCenter();
