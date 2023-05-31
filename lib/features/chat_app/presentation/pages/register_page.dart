@@ -16,60 +16,47 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final GlobalKey<FormState> _formkey1 = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
+        backgroundColor: AppColors.backgroundColor,
         body: Stack(
-      children: <Widget>[
-        Container(
-          height: size.height * 0.9,
-          width: size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50.0),
-            color: const Color(0xFF59B6B0),
-          ),
-        ),
-        SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 40.0,
-              vertical: 100.0,
-            ),
-            child: Form(
-              key: _formkey1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    'Register Account',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'OpenSans',
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
+          children: <Widget>[
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 100.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Register',
+                      style: TextStyle(
+                        color: AppColors.whiteTextColor,
+                        fontFamily: 'OpenSans',
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    color: AppColors.background,
-                    child: Image.asset("assets/images/logo.png"),
-                  ),
-                  const SizedBox(height: 30.0),
-                  const RegisterPageWidget(),
-                ],
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    SizedBox(
+                      width: fullWidth(context) * 0.5,
+                      child: Image.asset("assets/images/logo.png"),
+                    ),
+                    const SizedBox(height: 30.0),
+                    const RegisterPageWidget(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ),
-      ],
-    ));
+          ],
+        ));
   }
 }

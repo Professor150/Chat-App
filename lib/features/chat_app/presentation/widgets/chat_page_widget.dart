@@ -409,6 +409,7 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
   }
 
   bool isLastMessageLeft(int index) {
+    print("$index for right");
     if ((index > 0 &&
             chatPageListProvider.listMessage[index - 1]
                     .get(FirestoreConstants.idFrom) ==
@@ -421,6 +422,7 @@ class ChatPageWidgetState extends State<ChatPageWidget> {
   }
 
   bool isLastMessageRight(int index) {
+    print("$index for left");
     if ((index > 0 &&
             chatPageListProvider.listMessage[index - 1]
                     .get(FirestoreConstants.idFrom) !=
