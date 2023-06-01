@@ -1,3 +1,4 @@
+import 'package:chat/features/chat_app/data/models/profile_model.dart';
 import 'package:chat/core/constants/validator_constants.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -267,6 +268,8 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
 
   Widget _buildRegisterButton(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    ProfileProvider profileProvider =
+        Provider.of<ProfileProvider>(context, listen: false);
     switch (authProvider.status) {
       case Status.authenticateError:
         Fluttertoast.showToast(msg: "Sign up failed.");
@@ -299,6 +302,13 @@ class _RegisterPageWidgetState extends State<RegisterPageWidget> {
           String name = nameController.text;
           String email = emailController.text;
           String password = passwordController.text;
+
+//pradeep chnage
+          ProfileModel profile = ProfileModel(name: name, email: email);
+          profileProvider.setProfile(profile);
+          print('profile data is ${profile.email}');
+          // pradeep changes
+
           String confirmPassword = confirmPasswordController.text;
 
           if (_formKey.currentState!.validate()) {
