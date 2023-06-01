@@ -1,3 +1,5 @@
+import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
+import 'package:chat/features/chat_app/data/models/chat_page_arguments_model.dart';
 import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/forgot_button_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
@@ -13,7 +15,8 @@ import 'package:chat/features/chat_app/presentation/widgets/homepage_bottom_nav_
 import 'package:flutter/material.dart';
 
 class AppRouter {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  UserChat? userChat;
+  Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => const SplashPage());
@@ -37,8 +40,15 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/settingsPage':
         return MaterialPageRoute(builder: (_) => const SettingsPage());
-      case '/chatPage':
-        return MaterialPageRoute(builder: (_) => const ChatPage());
+      // case '/chatPage':
+      //   return MaterialPageRoute(
+      //       builder: (_) => ChatPage(
+      //             arguments: ChatPageArguments(
+      //               peerAvatar: userChat!.photoUrl,
+      //               peerId: userChat!.id,
+      //               peerName: userChat!.name,
+      //             ),
+      //           ));
       case '/forgot':
         return MaterialPageRoute(
             builder: (_) => ForgotButton(

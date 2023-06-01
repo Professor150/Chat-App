@@ -3,8 +3,15 @@ import 'package:chat/core/utils/global_variables.dart';
 import 'package:chat/features/chat_app/data/models/profile_model.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_list_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_page_list_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
+
 import 'package:chat/features/chat_app/presentation/widgets/homepage_bottom_nav_bar_widget.dart';
+
+import 'package:chat/features/chat_app/presentation/provider/search_bar_provider.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,23 +36,34 @@ class MyApp extends StatelessWidget {
   final SharedPreferences sharedPreferences;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+
   MyApp({super.key, required this.sharedPreferences});
+  final AppRouter appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(
-                firebaseAuth: fAuth!,
+                firebaseAuth: fAuth,
                 firebaseFirestore: firebaseFirestore,
                 sharedPreferences: sharedPreferences)),
+        ChangeNotifierProvider(create: (_) => SearchBarProvider()),
+        ChangeNotifierProvider(create: (_) => ChatListProvider()),
+        ChangeNotifierProvider(create: (_) => ChatPageListProvider()),
         Provider<HomePageProvider>(
             create: (_) =>
                 HomePageProvider(firebaseFirestore: firebaseFirestore)),
         ChangeNotifierProvider(
           create: (context) => ProfileProvider(),
-        )
+        ),
+        Provider(
+            create: (_) => ChatProvider(
+                firebaseFirestore: firebaseFirestore,
+                prefs: sharedPreferences,
+                firebaseStorage: firebaseStorage)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -53,14 +71,14 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
+            if (firebaseUser != null) {
               return CustomBottomNavigationBar();
             } else {
               return const LoginPage();
             }
           },
         ),
-        onGenerateRoute: AppRouter.generateRoute,
+        onGenerateRoute: appRouter.generateRoute,
       ),
     );
   }

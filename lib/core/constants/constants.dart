@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const backgroundColor = Color(0xff009f97);
   static const transparentBackgroundColor = Color(0xffDDEDED);
+  static const translucentBackgroundColor = Color(0xAA009f97);
 
   static const Color mainColor = Color(0xff2470c7);
   // static const Color primaryColor = Color(0xFF0D47A1);
@@ -11,7 +12,7 @@ class AppColors {
   static const Color textColor = Color(0xFF3C4046);
   static const Color textLightColor = Color(0xFFACACAC);
 
-  static const Color background = Color(0xFFF9F8FD);
+  static const Color whiteTextColor = Color(0xFFF9F8FD);
 
   static const Color titleTextColor = Color(0xff1d2635);
   static const Color subTitleTextColor = Color(0xff797878);
@@ -60,17 +61,17 @@ EdgeInsets edgeInsetsAll20() {
 }
 
 const labelStyle = TextStyle(
-  color: AppColors.background,
+  color: AppColors.whiteTextColor,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
-final hintTextStyle = TextStyle(
+const hintTextStyle = TextStyle(
   color: AppColors.textColor,
   fontFamily: 'OpenSans',
 );
 
 final boxDecorationStyle = BoxDecoration(
-  color: AppColors.background,
+  color: AppColors.transparentBackgroundColor,
   borderRadius: BorderRadius.circular(10.0),
   boxShadow: const [
     BoxShadow(
