@@ -10,7 +10,7 @@ bool validateEmail(String email) {
 bool validatePassword(String password) {
   // Regular expression pattern for password validation
   // This pattern enforces at least 8 characters and
-  // at least one uppercase letter, one lowercase letter,
+  // at least one uppercase letter, one lowercase letter, one special character
   // and one digit.
   const pattern =
       r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
