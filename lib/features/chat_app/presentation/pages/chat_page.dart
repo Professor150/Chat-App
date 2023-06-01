@@ -6,6 +6,7 @@ import 'package:chat/core/constants/firestore_constants.dart';
 import 'package:chat/features/chat_app/data/models/chat_page_arguments_model.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_message_list_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/widgets/chat_page_widget/chat_input_widget.dart';
 import 'package:chat/features/chat_app/presentation/widgets/chat_page_widget/message_list_widget.dart';
@@ -30,7 +31,7 @@ class ChatPage extends StatefulWidget {
 class ChatPageState extends State<ChatPage> {
   late final String currentUserId;
 
-  List<QueryDocumentSnapshot> listMessage = [];
+  // List<QueryDocumentSnapshot> listMessage = [];
   int _limit = 20;
   int _limitIncrement = 20;
   String groupChatId = "";
@@ -48,6 +49,8 @@ class ChatPageState extends State<ChatPage> {
       Provider.of<ChatProvider>(context, listen: false);
   late final AuthProvider authProvider =
       Provider.of<AuthProvider>(context, listen: false);
+  late final ChatMessageListProvider chatMessageListProvider =
+      Provider.of<ChatMessageListProvider>(context, listen: false);
 
   @override
   void initState() {
@@ -62,7 +65,7 @@ class ChatPageState extends State<ChatPage> {
     if (listScrollController.offset >=
             listScrollController.position.maxScrollExtent &&
         !listScrollController.position.outOfRange &&
-        _limit <= listMessage.length) {
+        _limit <= chatMessageListProvider.listMessage.length) {
       setState(() {
         _limit += _limitIncrement;
       });
@@ -165,7 +168,7 @@ class ChatPageState extends State<ChatPage> {
     }
   }
 
-  bool isLastMessageLeft(int index) {
+  bool isLastMessageLeft(int index, List<QueryDocumentSnapshot> listMessage) {
     print("$index for left");
     if ((index > 0 &&
             listMessage[index - 1].get(FirestoreConstants.idFrom) ==
@@ -177,7 +180,7 @@ class ChatPageState extends State<ChatPage> {
     }
   }
 
-  bool isLastMessageRight(int index) {
+  bool isLastMessageRight(int index, List<QueryDocumentSnapshot> listMessage) {
     print("$index for right");
     if ((index > 0 &&
             listMessage[index - 1].get(FirestoreConstants.idFrom) !=
@@ -233,7 +236,6 @@ class ChatPageState extends State<ChatPage> {
                       currentUserId: currentUserId,
                       isLastMessageLeft: isLastMessageLeft,
                       isLastMessageRight: isLastMessageRight,
-                      listMessage: getMessageList,
                       peerAvatar: widget.arguments.peerAvatar),
 
                   // Sticker

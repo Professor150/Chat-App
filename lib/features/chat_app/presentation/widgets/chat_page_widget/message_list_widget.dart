@@ -1,3 +1,4 @@
+import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_message_list_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/widgets/chat_page_widget/item_widget.dart';
 import 'package:chat/features/chat_app/presentation/widgets/loading.dart';
@@ -11,9 +12,8 @@ class MessageListWidget extends StatefulWidget {
   final int limit;
 
   final String currentUserId;
-  final Function(int) isLastMessageLeft;
-  final Function(int) isLastMessageRight;
-  final Function(List<QueryDocumentSnapshot>) listMessage;
+  final Function(int, List<QueryDocumentSnapshot>) isLastMessageLeft;
+  final Function(int, List<QueryDocumentSnapshot>) isLastMessageRight;
   final String peerAvatar;
   MessageListWidget({
     super.key,
@@ -23,7 +23,6 @@ class MessageListWidget extends StatefulWidget {
     required this.currentUserId,
     required this.isLastMessageLeft,
     required this.isLastMessageRight,
-    required this.listMessage,
     required this.peerAvatar,
   });
 
@@ -32,9 +31,11 @@ class MessageListWidget extends StatefulWidget {
 }
 
 class _MessageListWidgetState extends State<MessageListWidget> {
-  late List<QueryDocumentSnapshot>? listMessage = [];
+  // late List<QueryDocumentSnapshot>? listMessage = [];
   late ChatProvider chatProvider =
       Provider.of<ChatProvider>(context, listen: false);
+  late ChatMessageListProvider chatMessageListProvider =
+      Provider.of<ChatMessageListProvider>(context, listen: false);
   @override
   Widget build(BuildContext context) {
     return Flexible(
@@ -45,21 +46,20 @@ class _MessageListWidgetState extends State<MessageListWidget> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasData) {
-                  listMessage = snapshot.data!.docs;
-                  print("Messages are ${listMessage}");
+                  chatMessageListProvider.setMessageList(snapshot.data!.docs);
+
                   print("${snapshot.data}");
-                  if (listMessage!.isNotEmpty) {
-                    print("List length is ${listMessage!.length}");
+                  if (snapshot.data!.docs.isNotEmpty) {
                     return ListView.builder(
                       padding: const EdgeInsets.all(10),
                       itemBuilder: (context, index) => ItemWidget(
-                          index: index,
-                          document: snapshot.data?.docs[index],
-                          currentUserId: widget.currentUserId,
-                          isLastMessageLeft: widget.isLastMessageLeft,
-                          isLastMessageRight: widget.isLastMessageRight,
-                          peerAvatar: widget.peerAvatar,
-                          listMessage: listMessage),
+                        index: index,
+                        document: snapshot.data?.docs[index],
+                        currentUserId: widget.currentUserId,
+                        isLastMessageLeft: widget.isLastMessageLeft,
+                        isLastMessageRight: widget.isLastMessageRight,
+                        peerAvatar: widget.peerAvatar,
+                      ),
                       itemCount: snapshot.data?.docs.length,
                       reverse: true,
                       controller: widget.listScrollController,

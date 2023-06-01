@@ -6,9 +6,8 @@ import 'package:chat/core/utils/keyboard.dart';
 import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
 import 'package:chat/features/chat_app/data/models/chat_page_arguments_model.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_list_provider.dart';
-import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_message_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
-import 'package:chat/features/chat_app/presentation/pages/chat_page_widget.dart';
+import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/widgets/home_page_widget/app_bar_widget.dart';
 import 'package:chat/features/chat_app/presentation/widgets/home_page_widget/search_widget.dart';
 import 'package:chat/features/chat_app/presentation/widgets/loading.dart';
@@ -36,8 +35,6 @@ class _HomePageState extends State<HomePage> {
       context.read<HomePageProvider>();
   late final ChatListProvider chatListProvider =
       Provider.of<ChatListProvider>(context, listen: false);
-  late final ChatMessageProvider chatMessageProvider =
-      Provider.of<ChatMessageProvider>(context, listen: false);
 
   @override
   void initState() {

@@ -12,16 +12,14 @@ class FullPhotoPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
-        title: Text(
+        title: const Text(
           'Image',
           style: TextStyle(color: AppColors.textColor),
         ),
         centerTitle: true,
       ),
-      body: Container(
-        child: PhotoView(
-          imageProvider: NetworkImage(url),
-        ),
+      body: PhotoView(
+        imageProvider: NetworkImage(url),
       ),
     );
   }
