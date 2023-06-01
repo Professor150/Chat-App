@@ -1,9 +1,9 @@
-import 'dart:ffi';
-
 import 'package:chat/core/constants/constants.dart';
+import 'package:chat/features/chat_app/data/models/profile_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -13,12 +13,14 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String name = 'Pradeep Tharu';
-  String profession = 'Mobile App Developer';
-  String school = 'Kathmandu University';
-  String email = 'pradeeptharu535@gmail.com';
-  String phoneNumber = '+9779812345678';
-  String facebook = 'Pradeep Tharu';
+  late User? _user;
+  String name = '';
+  String profession = '';
+  String school = '';
+  String email = '';
+  String phoneNumber = '';
+  String facebook = '';
+  String id = '';
   bool isEditing = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController professionController = TextEditingController();
@@ -28,17 +30,19 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     getUserProfile();
+    updateUserProfile();
   }
 
-  void getUserProfile() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
+  Future<void> getUserProfile() async {
+    _user = FirebaseAuth.instance.currentUser;
+    if (_user != null) {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
+          .collection('profile')
+          .doc(_user!.uid)
           .get();
       if (snapshot.exists) {
         setState(() {
+          id = snapshot['id'];
           name = snapshot['name'];
           profession = snapshot['profession'];
           school = snapshot['school'];
@@ -51,9 +55,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void updateUserProfile() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+    if (_user != null) {
+      FirebaseFirestore.instance.collection('profile').doc(_user!.uid).set({
         'name': name,
         'profession': profession,
         'school': school,
@@ -66,6 +69,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileModel? profile = Provider.of<ProfileProvider>(context).profile;
+    print('profile data is ${profile?.name}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.backgroundColor,
@@ -188,7 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           )
                         : normalText(
-                            text: profession,
+                            text: profile?.name,
                             color: Colors.white,
                             size: 16,
                             fontWeight: FontWeight.w400,
@@ -269,7 +274,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               initialValue: email,
                             ),
                           )
-                        : normalText(text: 'Email \n$email'),
+                        : normalText(text: 'Email \n${_user?.email}'),
                   ],
                 ),
               ),
@@ -357,13 +362,40 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+              Divider(
+                endIndent: fullWidth(context) * 0.05,
+                indent: fullWidth(context) * 0.01,
+                color: Colors.grey.shade400,
+              ),
               SizedBox(
                 width: fullWidth(context) * 0.5,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    TextButton.icon(
+                        label: normalText(
+                            text: 'Logout',
+                            size: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                        onPressed: _signOut,
+                        icon: const Icon(
+                          Icons.logout,
+                        )),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+    print('Succesfully SignOut');
   }
 }

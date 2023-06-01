@@ -20,6 +20,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
+  bool _isLoading = false;
   final FocusNode _field1FocusNode = FocusNode();
   final FocusNode _field2FocusNode = FocusNode();
   final FocusScopeNode _focusScopeNode = FocusScopeNode();
@@ -187,15 +188,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15))),
         onPressed: () async {
+          setState(() {
+            _isLoading = true;
+          });
           String email = emailController.text;
           String password = passwordController.text;
           if (_formKey.currentState!.validate()) {
             (_formKey.currentState!.save());
-            // authProvider.handleSignIn(email, password).then((isSuccess) {
-            //   if (isSuccess) {
-            //     Navigator.pushNamed(context, '/homePage');
-            //   }
-            // });
             try {
               bool success = await authProvider.handleSignIn(email, password);
               if (success) {
@@ -207,56 +206,28 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             } catch (e) {
               if (e is FirebaseAuthException) {
                 // Handle FirebaseAuthException
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text(e.code),
-                      content: Text('${e.message}'),
-                      actions: [
-                        TextButton(
-                          child: const Text('OK'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+                showAlertDialog(context, e.code, '${e.message}');
               } else {
                 // Handle other types of exceptions or errors
-                print('Error: $e');
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text('Error'),
-                      content: Text('$e'),
-                      actions: [
-                        TextButton(
-                          child: const Text('OK'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+
+                showAlertDialog(context, 'ERROR', '$e');
               }
             }
           }
         },
-        child: const Text(
-          'LOGIN',
-          style: TextStyle(
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
+        child: _isLoading
+            ? const CircularProgressIndicator(
+                color: AppColors.backgroundColor,
+              ) // Show circular progress indicator if Loading
+            : const Text(
+                'LOGIN',
+                style: TextStyle(
+                  letterSpacing: 1.5,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'OpenSans',
+                ),
+              ),
       ),
     );
   }
@@ -303,6 +274,42 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
           ),
         ],
       ),
+    );
+  }
+
+  showAlertDialog(BuildContext context, String txt1, String txt2) {
+    // set up the button
+    Widget okButton = ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor),
+      child: const Text(
+        "OK",
+        style: TextStyle(color: Colors.black),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+        setState(() {
+          _isLoading = false;
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(txt1),
+      icon: const Icon(Icons.error_outlined),
+      iconColor: Colors.red,
+      content: Text(txt2),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 

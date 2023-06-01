@@ -1,15 +1,16 @@
 import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
 import 'package:chat/features/chat_app/data/models/chat_page_arguments_model.dart';
-import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/forgot_button_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/opt_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/page_not_found.dart';
 import 'package:chat/features/chat_app/presentation/pages/phone_number_login_page.dart';
+import 'package:chat/features/chat_app/presentation/pages/profile_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/register_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/settings_page.dart';
 import 'package:chat/features/chat_app/presentation/pages/splash_page.dart';
+import 'package:chat/features/chat_app/presentation/widgets/homepage_bottom_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -23,8 +24,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const RegisterPage());
       case '/loginPage':
         return MaterialPageRoute(builder: (_) => const LoginPage());
-      case '/phoneNumberLoginPage':
-        return MaterialPageRoute(builder: (_) => const PhoneNumberLoginPage());
+      case '/customNavigationBar':
+        return MaterialPageRoute(builder: (_) => CustomBottomNavigationBar());
       case '/emailLinkLoginPage':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/otpPage':

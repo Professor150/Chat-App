@@ -5,9 +5,9 @@ import 'package:chat/core/utils/diaglog_functions.dart';
 import 'package:chat/core/utils/keyboard.dart';
 import 'package:chat/features/chat_app/data/models/chat_message_model.dart';
 import 'package:chat/features/chat_app/data/models/chat_page_arguments_model.dart';
-import 'package:chat/features/chat_app/presentation/provider/chat_list_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_list_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
-import 'package:chat/features/chat_app/presentation/widgets/chat_page_widget.dart';
+import 'package:chat/features/chat_app/presentation/pages/chat_page.dart';
 import 'package:chat/features/chat_app/presentation/widgets/home_page_widget/app_bar_widget.dart';
 import 'package:chat/features/chat_app/presentation/widgets/home_page_widget/search_widget.dart';
 import 'package:chat/features/chat_app/presentation/widgets/loading.dart';
@@ -115,10 +115,11 @@ class _HomePageState extends State<HomePage> {
                 if (KeyBoardUtil.isKeyboardShowing()) {
                   KeyBoardUtil.closeKeyboard(context);
                 }
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChatPageWidget(
+                    builder: (context) => ChatPage(
                       arguments: ChatPageArguments(
                         peerId: userChat.id,
                         peerAvatar: userChat.photoUrl,
