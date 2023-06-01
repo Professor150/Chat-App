@@ -12,7 +12,7 @@ class AppColors {
   static const Color textColor = Color(0xFF3C4046);
   static const Color textLightColor = Color(0xFFACACAC);
 
-  static const Color background = Color(0xFFF9F8FD);
+  static const Color whiteTextColor = Color(0xFFF9F8FD);
 
   static const Color titleTextColor = Color(0xff1d2635);
   static const Color subTitleTextColor = Color(0xff797878);
@@ -37,6 +37,7 @@ class AppColors {
 class ImagePath {
   static const String vurilo = 'assets/images/vurilo.png';
   static const String splashImage = 'assets/images/logo.png';
+  static const String profileImage = 'assets/images/professor.jpg';
 }
 
 double fullWidth(BuildContext context) {
@@ -60,17 +61,17 @@ EdgeInsets edgeInsetsAll20() {
 }
 
 const labelStyle = TextStyle(
-  color: AppColors.background,
+  color: AppColors.whiteTextColor,
   fontWeight: FontWeight.bold,
   fontFamily: 'OpenSans',
 );
-final hintTextStyle = TextStyle(
+const hintTextStyle = TextStyle(
   color: AppColors.textColor,
   fontFamily: 'OpenSans',
 );
 
 final boxDecorationStyle = BoxDecoration(
-  color: AppColors.background,
+  color: AppColors.transparentBackgroundColor,
   borderRadius: BorderRadius.circular(10.0),
   boxShadow: const [
     BoxShadow(

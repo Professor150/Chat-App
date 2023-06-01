@@ -1,13 +1,16 @@
+import 'package:chat/core/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ForgotButton extends StatelessWidget {
   TextEditingController emailController;
-  ForgotButton({required this.emailController});
+  ForgotButton({super.key, required this.emailController});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -48,7 +51,7 @@ class ForgotButton extends StatelessWidget {
                           ),
                           actions: [
                             TextButton(
-                              child: Text('OK'),
+                              child: const Text('OK'),
                               onPressed: () {
                                 Navigator.pushNamed(context, '/loginPage');
                               },
@@ -58,7 +61,7 @@ class ForgotButton extends StatelessWidget {
                       },
                     );
                   }).catchError((error) {
-                    showDialog(                                     
+                    showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
@@ -69,7 +72,7 @@ class ForgotButton extends StatelessWidget {
                           ),
                           actions: [
                             TextButton(
-                              child: Text('OK'),
+                              child: const Text('OK'),
                               onPressed: () {
                                 Navigator.pop(context);
                               },

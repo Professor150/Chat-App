@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 enum Status {
   uninitialized,
   authenticated,
+  authenticated1,
   authenticating,
   authenticateError,
   authenticateException,
@@ -58,7 +59,7 @@ class AuthProvider extends ChangeNotifier {
     if (firebaseUser != null) {
       firebaseFirestore
           .collection(FirestoreConstants.pathUserCollection)
-          .doc(firebaseUser!.uid)
+          .doc(firebaseUser.uid)
           .set({
         FirestoreConstants.email: email,
         FirestoreConstants.name: name,
@@ -76,7 +77,7 @@ class AuthProvider extends ChangeNotifier {
       await sharedPreferences.setString(
           FirestoreConstants.photoUrl, currentUser.photoURL ?? "");
 
-      _status = Status.authenticated;
+      _status = Status.authenticated1;
       notifyListeners();
       return true;
     } else {
@@ -114,14 +115,16 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  //
   void handleException() {
     _status = Status.authenticateException;
     notifyListeners();
   }
 
-  Future<void> handleSignOut() async {
+  Future<void> handleSignOut(context) async {
     _status = Status.uninitialized;
     await fAuth.signOut();
     notifyListeners();
+    Navigator.popAndPushNamed(context, '/loginPage');
   }
 }

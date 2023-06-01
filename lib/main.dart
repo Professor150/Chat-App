@@ -1,13 +1,17 @@
 import 'package:chat/core/app_route/app_route.dart';
 import 'package:chat/core/utils/global_variables.dart';
-import 'package:chat/features/chat_app/presentation/pages/home_page.dart';
+import 'package:chat/features/chat_app/data/models/profile_model.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_list_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_message_list_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
+
+import 'package:chat/features/chat_app/presentation/widgets/homepage_bottom_nav_bar_widget.dart';
+
 import 'package:chat/features/chat_app/presentation/provider/search_bar_provider.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,6 +42,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(
@@ -51,11 +56,14 @@ class MyApp extends StatelessWidget {
         Provider<HomePageProvider>(
             create: (_) =>
                 HomePageProvider(firebaseFirestore: firebaseFirestore)),
+        ChangeNotifierProvider(
+          create: (context) => ProfileProvider(),
+        ),
         Provider(
             create: (_) => ChatProvider(
                 firebaseFirestore: firebaseFirestore,
                 prefs: sharedPreferences,
-                firebaseStorage: firebaseStorage))
+                firebaseStorage: firebaseStorage)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -63,8 +71,8 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return const HomePage();
+            if (firebaseUser != null) {
+              return CustomBottomNavigationBar();
             } else {
               return const LoginPage();
             }
