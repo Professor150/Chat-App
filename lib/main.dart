@@ -3,9 +3,9 @@ import 'package:chat/core/utils/global_variables.dart';
 import 'package:chat/features/chat_app/data/models/profile_model.dart';
 import 'package:chat/features/chat_app/presentation/pages/login_page.dart';
 import 'package:chat/features/chat_app/presentation/provider/auth_provider.dart';
-import 'package:chat/features/chat_app/presentation/provider/chat_list_provider.dart';
-import 'package:chat/features/chat_app/presentation/provider/chat_page_list_provider.dart';
-import 'package:chat/features/chat_app/presentation/provider/chat_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_list_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_message_list_provider.dart';
+import 'package:chat/features/chat_app/presentation/provider/chat_provider/chat_provider.dart';
 import 'package:chat/features/chat_app/presentation/provider/home_page_provider.dart';
 
 import 'package:chat/features/chat_app/presentation/widgets/homepage_bottom_nav_bar_widget.dart';
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
                 sharedPreferences: sharedPreferences)),
         ChangeNotifierProvider(create: (_) => SearchBarProvider()),
         ChangeNotifierProvider(create: (_) => ChatListProvider()),
-        ChangeNotifierProvider(create: (_) => ChatPageListProvider()),
+        ChangeNotifierProvider(create: (_) => ChatMessageListProvider()),
         Provider<HomePageProvider>(
             create: (_) =>
                 HomePageProvider(firebaseFirestore: firebaseFirestore)),
